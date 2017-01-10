@@ -3,19 +3,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="Home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_schedule"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Schedule" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_log"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Log" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_maxes"
             android:icon="@drawable/ic_menu_manage"
             android:title="Maxes" />
     </group>
@@ -23,11 +23,11 @@
     <item android:title="User">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_profile"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Profile" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Settings" />
             <item
