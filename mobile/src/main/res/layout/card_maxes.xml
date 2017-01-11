@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    >
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:id="@+id/cardView"
+        android:padding="10dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="4dp"
+        android:layout_height="wrap_content"
+        app:contentPadding="10dp"
+        app:cardElevation="3dp"
+        android:layout_marginBottom="6dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relative"
+            android:padding="10dp">
+
+            <TextView
+                android:text="Lift:"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="26sp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/liftTitle"
+                android:layout_centerInParent="true"
+                />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="135lbs"
+                android:textSize="40sp"
+                android:id="@+id/weight"
+                android:layout_below="@+id/liftTitle"
+                android:layout_centerInParent="true"
+                />
+
+            <Button
+                android:text="@string/default_preset_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/preset1"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless.Small"
+                android:textSize="26sp"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:background="?android:selectableItemBackground"
+                android:minWidth="54dip"
+                android:layout_toStartOf="@+id/weight"
+                android:layout_below="@+id/weight"
+                />
+
+            <Button
+                android:text="@string/default_preset_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/preset2"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless.Small"
+                android:textSize="26sp"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:background="?android:selectableItemBackground"
+                android:minWidth="54dip"
+                android:layout_alignBottom="@id/preset1"
+                android:layout_toStartOf="@+id/preset3"/>
+
+            <Button
+                android:text="@string/default_preset_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/preset5"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless.Small"
+                android:textSize="26sp"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:background="?android:selectableItemBackground"
+                android:minWidth="54dip"
+                android:layout_alignBaseline="@+id/preset1"
+                android:layout_alignBottom="@+id/preset1"
+                android:layout_toEndOf="@+id/preset4"
+                />
+
+            <Button
+                android:text="@string/default_preset_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/preset4"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless.Small"
+                android:textSize="26sp"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:background="?android:selectableItemBackground"
+                android:minWidth="54dip"
+                android:layout_alignBaseline="@+id/preset3"
+                android:layout_alignBottom="@+id/preset3"
+                android:layout_toEndOf="@+id/weight"
+                />
+
+            <Button
+                android:text="@string/default_preset_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/preset3"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless.Small"
+                android:textSize="26sp"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:background="?android:selectableItemBackground"
+                android:minWidth="54dip"
+                android:layout_alignBaseline="@+id/preset2"
+                android:layout_alignBottom="@+id/preset2"
+                android:layout_centerInParent="false"
+                android:layout_alignEnd="@+id/weight"/>
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
