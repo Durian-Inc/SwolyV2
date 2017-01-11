@@ -16,7 +16,9 @@
         <item>Bench</item>
         <item>Deadlift</item>
         <item>Squat</item>
-        <item>"Incline Bench"</item>
+        <item>Incline Bench</item>
+        <item>Lift here</item>
+        <item>Another lift</item>
     </string-array>
 
 </resources>
