@@ -1,4 +1,4 @@
-package com.tripidevs.swoly.Maxes;
+package com.tripidevs.swoly.maxes;
 
 /**
  * Created by user on 1/10/2017.

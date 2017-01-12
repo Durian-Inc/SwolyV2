@@ -1,19 +1,20 @@
 package com.tripidevs.swoly;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.tripidevs.swoly.home.HomeFragment;
 import com.tripidevs.swoly.log.LogFragment;
+import com.tripidevs.swoly.maxes.MaxesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentClass = LogFragment.class;
                 break;
             case R.id.nav_maxes:
-//                fragmentClass = MaxesFragment.class;
+                fragmentClass = MaxesFragment.class;
                 break;
             case R.id.nav_profile:
 //                fragmentClass = ProfileFragment.class;
