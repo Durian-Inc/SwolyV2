@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         app:fabSize="normal"
-        app:srcCompat="@drawable/ic_add_black_24dp"
+        app:srcCompat="@drawable/ic_add_white_24dp"
         android:id="@+id/floatingActionButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
