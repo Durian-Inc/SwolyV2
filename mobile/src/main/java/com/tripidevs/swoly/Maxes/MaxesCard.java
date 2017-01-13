@@ -6,17 +6,17 @@ package com.tripidevs.swoly.maxes;
 
 public class MaxesCard {
     private String liftName;
-    private String liftMax;
+    private int liftMax;
 
-    public MaxesCard(String name, String max){
+    public MaxesCard(String name, int max){
         this.liftMax = max;
         this.liftName = name;
     }
-    public String getLiftMax() {
+    public int getLiftMax() {
         return liftMax;
     }
 
-    public void setLiftMax(String liftMax) {
+    public void setLiftMax(int liftMax) {
         this.liftMax = liftMax;
     }
 

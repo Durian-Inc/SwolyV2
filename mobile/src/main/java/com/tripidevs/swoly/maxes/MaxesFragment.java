@@ -1,5 +1,7 @@
 package com.tripidevs.swoly.maxes;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -49,7 +51,7 @@ public class MaxesFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createNewMax("Bench", "500");
+                createNewMax("Bench", 500);
             }
         });
     }
@@ -63,10 +65,26 @@ public class MaxesFragment extends Fragment {
         weight.setText(String.valueOf(newWeight));
     }
 
-    public void createNewMax(String name, String weight){
-        MaxesCard newMax = new MaxesCard(name,weight);
-        list.add(newMax);
-        adapter.notifyDataSetChanged();
+    public void createNewMax(String name, int weight){
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        View v = layoutInflater.inflate(R.layout.dialog_max_input, null);
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
+        alertBuilder.setView(v);
+
+        alertBuilder
+                .setCancelable(true)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+        //MaxesCard newMax = new MaxesCard(name,weight);
+        //list.add(newMax);
+        //adapter.notifyDataSetChanged();
     }
 
 }

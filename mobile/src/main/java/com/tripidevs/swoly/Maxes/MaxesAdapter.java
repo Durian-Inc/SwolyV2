@@ -31,12 +31,6 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         this.maxes = maxes;
     }
 
-    public void updateView(ArrayList<MaxesCard> updatedMaxes){
-        maxes.clear();
-        maxes.addAll(updatedMaxes);
-        notifyDataSetChanged();
-    }
-
     @Override
     public MaxesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout
@@ -49,7 +43,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
     public void onBindViewHolder(final MaxesViewHolder holder, int position) {
         MaxesCard max = maxes.get(position);
         holder.lift.setText(max.getLiftName());
-        holder.weight.setText(max.getLiftMax());
+        holder.weight.setText(String.valueOf(max.getLiftMax()));
         for (final Button button: holder.cardButtons) {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
