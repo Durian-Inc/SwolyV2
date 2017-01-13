@@ -21,6 +21,14 @@
         <item>Another lift</item>
     </string-array>
 
+    <integer-array name="liftWeights">
+        <item>135</item>
+        <item>225</item>
+        <item>335</item>
+        <item>415</item>
+        <item>445</item>
+        <item>500</item>
+    </integer-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

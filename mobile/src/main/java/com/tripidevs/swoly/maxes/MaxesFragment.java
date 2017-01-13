@@ -22,12 +22,13 @@ public class MaxesFragment extends Fragment {
     ArrayList<MaxesCard> list = new ArrayList<>();
     ArrayList<Button> buttons = new ArrayList<>();
     String[] lifts;
-    int[] maxes = {500, 135, 225, 650, 666, 999};
+    int[] maxes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         lifts = getResources().getStringArray(R.array.liftNames);
+        maxes = getResources().getIntArray(R.array.liftWeights);
         int count = 0;
         for(String Lift : lifts){
             MaxesCard newMax = new MaxesCard(Lift,

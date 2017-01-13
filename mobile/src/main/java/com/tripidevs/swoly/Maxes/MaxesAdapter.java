@@ -1,5 +1,6 @@
 package com.tripidevs.swoly.maxes;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -75,6 +76,11 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                         Toast.makeText(v.getContext(), "Edit was clicked", Toast
                                 .LENGTH_SHORT).show();
                         return true;
+                    case R.id.menu_delete:
+                        Toast.makeText(v.getContext(), "Max will be deleted",
+                                Toast
+                                .LENGTH_SHORT).show();
+                        return true;
                     default:
                         return false;
                 }
@@ -89,12 +95,14 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         RelativeLayout cardLayout;
         ArrayList<AppCompatButton> cardButtons = new ArrayList<>();
         ImageView vertMenu;
-
+        FloatingActionButton floatingActionButton;
         public MaxesViewHolder(View view){
             super(view);
             lift = (TextView) view.findViewById(R.id.liftTitle);
             weight = (TextView) view.findViewById(R.id.weight);
             cardLayout = (RelativeLayout) view.findViewById(R.id.relative);
+            floatingActionButton = (FloatingActionButton) view.findViewById(R
+                    .id.additionFAB);
             for(short i =0; i<cardLayout.getChildCount(); i++){
                 if(cardLayout.getChildAt(i) instanceof AppCompatButton){
                     cardButtons.add((AppCompatButton) cardLayout.getChildAt(i));
