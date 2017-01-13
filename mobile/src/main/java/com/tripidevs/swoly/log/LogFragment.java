@@ -30,20 +30,54 @@ public class LogFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        printItems(); // Uncomment this if you want to get the items printed to logcat
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        DBHandler db = new DBHandler(getActivity());
+
+//        db.addItem(new DatabaseItem("Bench", 135));
+//        db.addItem(new DatabaseItem("Bench", 145));
+//        db.addItem(new DatabaseItem("Squat", 235));
+//        db.addItem(new DatabaseItem("Bench", 170));
+//        db.addItem(new DatabaseItem("Deadlift", 140));
+//        db.addItem(new DatabaseItem("Squat", 260));
+//        db.addItem(new DatabaseItem("Bench", 200));
+//        db.addItem(new DatabaseItem("Bench", 205));
+//        db.addItem(new DatabaseItem("Deadlift", 160));
+//        db.addItem(new DatabaseItem("Deadlift", 170));
+//        db.addItem(new DatabaseItem("Squat", 300));
+//        db.addItem(new DatabaseItem("Bench", 220));
+//        db.addItem(new DatabaseItem("Squat", 320));
+
+        printItems(); // Uncomment this if you want to get the items printed to logcat
+//        clearItems();
+//        printItems();
     }
 
     public void printItems() {
         DBHandler db = new DBHandler(getActivity());
 
         // Reading all items
-        Log.d("Reading: ", "Reading all items..");
+        Log.d("SQL: ", "Reading all items...");
         List<DatabaseItem> contacts = db.getAllItems();
 
         for (DatabaseItem cn : contacts) {
             String log = "ID: "+cn.getID()+", Item: " + cn.getItem() + ", Value: " + cn.getValue();
             // Writing Items to log
-            Log.d("Item: ", log);
+            Log.d("SQL: ", log);
         }
+        db.close();
+    }
+
+    public void clearItems() {
+        DBHandler db = new DBHandler(getActivity());
+        db.deleteAllItems();
+        String log = "Clearing all items...";
+        Log.d("SQL: ", log);
+        db.close();
     }
 }

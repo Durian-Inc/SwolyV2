@@ -129,4 +129,10 @@ public class DBHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(item) });
         db.close();
     }
+
+    public void deleteAllItems() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ITEMS, "1", null);
+        db.close();
+    }
 }
