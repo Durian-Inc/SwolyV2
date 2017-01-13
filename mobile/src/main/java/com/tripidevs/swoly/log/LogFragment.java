@@ -37,12 +37,14 @@ public class LogFragment extends Fragment {
         String tableName = "bench";
         DBHandler db = new DBHandler(getActivity(), tableName);
 
+//        db.logAllTables();
 //        db.deleteTable();
 //        db.createTable();
-//        db.addItem(new DatabaseItem(135));
+//        db.addItem(new DatabaseItem(13));
 
-        printItems(tableName); // Uncomment this if you want to get the items printed to logcat
-//        clearItems();
+
+//        printItems(tableName); // Uncomment this if you want to get the items printed to logcat
+//        clearItems(tableName);
 //        printItems();
     }
 
@@ -61,8 +63,8 @@ public class LogFragment extends Fragment {
         db.close();
     }
 
-    public void clearItems() {
-        DBHandler db = new DBHandler(getActivity());
+    public void clearItems(String tableName) {
+        DBHandler db = new DBHandler(getActivity(), tableName);
         db.deleteAllItems();
         String log = "Clearing all items...";
         Log.d("SQL: ", log);
