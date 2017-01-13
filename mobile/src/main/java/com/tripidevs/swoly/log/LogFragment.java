@@ -14,6 +14,7 @@ import com.tripidevs.swoly.DBHandler;
 import com.tripidevs.swoly.DatabaseItem;
 import com.tripidevs.swoly.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LogFragment extends Fragment {
@@ -34,10 +35,9 @@ public class LogFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        String tableName = "bench";
-        DBHandler db = new DBHandler(getActivity(), tableName);
+        String tableName = "deadlift";
+        DBHandler db = new DBHandler(getActivity());
 
-//        db.logAllTables();
 //        db.deleteTable();
 //        db.createTable();
 //        db.addItem(new DatabaseItem(13));

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.ContentValues;
 import android.util.Log;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_VALUE = "value";
 
-    // Constructor
-//    public DBHandler(Context context) {
-//        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//    }
+//     Constructor
+    public DBHandler(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     public DBHandler(Context context, String table) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -204,8 +205,8 @@ public class DBHandler extends SQLiteOpenHelper {
     public void logAllTables() {
         ArrayList<String> tables = listAllTables();
 
-        for (int i=0;i<tables.size();i++) {
-            Log.d("SQL: ", "Table: " + tables.get(i));
+        for (String table: tables) {
+            Log.d("SQL: ", "Table: "+ table);
         }
     }
 }
