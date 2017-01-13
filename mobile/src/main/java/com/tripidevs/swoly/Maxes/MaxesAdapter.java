@@ -30,6 +30,13 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
     public MaxesAdapter(ArrayList<MaxesCard> maxes){
         this.maxes = maxes;
     }
+
+    public void updateView(ArrayList<MaxesCard> updatedMaxes){
+        maxes.clear();
+        maxes.addAll(updatedMaxes);
+        notifyDataSetChanged();
+    }
+
     @Override
     public MaxesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout
@@ -96,6 +103,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         ArrayList<AppCompatButton> cardButtons = new ArrayList<>();
         ImageView vertMenu;
         FloatingActionButton floatingActionButton;
+
         public MaxesViewHolder(View view){
             super(view);
             lift = (TextView) view.findViewById(R.id.liftTitle);

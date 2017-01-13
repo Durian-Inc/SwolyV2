@@ -2,6 +2,7 @@ package com.tripidevs.swoly.maxes;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,40 +18,40 @@ import java.util.ArrayList;
 
 public class MaxesFragment extends Fragment {
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    static RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<MaxesCard> list = new ArrayList<>();
-    ArrayList<Button> buttons = new ArrayList<>();
-    String[] lifts;
-    int[] maxes;
+    FloatingActionButton floatingActionButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        lifts = getResources().getStringArray(R.array.liftNames);
-        maxes = getResources().getIntArray(R.array.liftWeights);
-        int count = 0;
-        for(String Lift : lifts){
-            MaxesCard newMax = new MaxesCard(Lift,
-                    String.valueOf(maxes[count]));
-            count++;
-            list.add(newMax);
-        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_maxes,container,false);
-
         recyclerView = (RecyclerView) v.findViewById(R.id.maxesRecyclerView);
+        return v;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         adapter = new MaxesAdapter(list);
         recyclerView.setAdapter(adapter);
-
-        return v;
+        floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id
+                .additionFAB);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewMax("Bench", "500");
+            }
+        });
     }
 
     protected static void percentageClick(Button button, TextView
@@ -60,6 +61,12 @@ public class MaxesFragment extends Fragment {
         float percentage = Float.parseFloat(button.getText().toString())/100;
         newWeight = (((oldWeight*percentage)-45)/2);
         weight.setText(String.valueOf(newWeight));
+    }
+
+    public void createNewMax(String name, String weight){
+        MaxesCard newMax = new MaxesCard(name,weight);
+        list.add(newMax);
+        adapter.notifyDataSetChanged();
     }
 
 }
