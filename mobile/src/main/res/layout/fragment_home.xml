@@ -6,10 +6,11 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="280dp"
         app:srcCompat="@drawable/swoly_title"
         android:layout_centerHorizontal="true"
-        android:id="@+id/swolyImage" />
+        android:id="@+id/swolyImage"
+        android:layout_marginTop="38dp"/>
 
     <Button
         android:text="Log in with Google"
