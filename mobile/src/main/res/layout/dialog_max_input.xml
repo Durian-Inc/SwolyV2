@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtLiftName"
         android:inputType="text"
-        android:hint="Bench Press"
+        android:hint="Bench"
         style="@android:style/Widget.Material.Light.EditText"/>
     <TextView
         android:layout_marginTop="8dp"
@@ -29,6 +29,7 @@
         android:id="@+id/txtWeight"
         style="@android:style/Widget.Material.Light.EditText"
         android:hint="135"
+        android:inputType="numberSigned"
         />
 
 </LinearLayout>

@@ -8,21 +8,27 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.tripidevs.swoly.DBHandler;
+import com.tripidevs.swoly.DatabaseItem;
 import com.tripidevs.swoly.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MaxesFragment extends Fragment {
     RecyclerView recyclerView;
-    static RecyclerView.Adapter adapter;
+    RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<MaxesCard> list = new ArrayList<>();
+    ArrayList<DatabaseItem> currMaxes = new ArrayList<>();
     FloatingActionButton floatingActionButton;
 
     @Override
@@ -51,7 +57,7 @@ public class MaxesFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createNewMax("Bench", 500);
+                createNewMax();
             }
         });
     }
@@ -65,26 +71,58 @@ public class MaxesFragment extends Fragment {
         weight.setText(String.valueOf(newWeight));
     }
 
-    public void createNewMax(String name, int weight){
+    public void createNewMax(){
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        View v = layoutInflater.inflate(R.layout.dialog_max_input, null);
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
+        final View v = layoutInflater.inflate(R.layout.dialog_max_input, null);
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
         alertBuilder.setView(v);
-
         alertBuilder
-                .setCancelable(true)
+                .setCancelable(false)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        EditText userInputName = (EditText) v.findViewById(R.id
+                                .txtLiftName);
+                        EditText userInputWeight = (EditText) v.findViewById
+                                (R.id.txtWeight);
+                        String name = userInputName.getText().toString();
+                        int weight = Integer.parseInt( userInputWeight.getText()
+                                .toString());
+                        DBHandler db = new DBHandler(getActivity(), name
+                                .toLowerCase());
+                        db.createTable();
+                        db.addItem(new DatabaseItem(weight));
+                        MaxesCard newMax = new MaxesCard(name,weight);
+                        list.add(newMax);
+                        adapter.notifyDataSetChanged();
+                        printItems(name);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 });
 
         AlertDialog alertDialog = alertBuilder.create();
         alertDialog.show();
-        //MaxesCard newMax = new MaxesCard(name,weight);
-        //list.add(newMax);
-        //adapter.notifyDataSetChanged();
+
+    }
+
+    public void printItems(String tableName) {
+        DBHandler db = new DBHandler(getActivity(), tableName);
+
+        // Reading all items
+        Log.d("SQL: ", "Reading all items from "+tableName+"...");
+        List<DatabaseItem> contacts = db.getAllItems();
+
+        for (DatabaseItem cn : contacts) {
+            String log = "ID: "+cn.getID()+", Value: " + cn.getValue();
+            // Writing Items to log
+            Log.d("SQL: ", log);
+        }
+        db.close();
     }
 
 }

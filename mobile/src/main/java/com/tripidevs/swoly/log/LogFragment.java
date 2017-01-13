@@ -1,6 +1,5 @@
 package com.tripidevs.swoly.log;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,34 +34,13 @@ public class LogFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        DBHandler db = new DBHandler(getActivity(), "bench");
-
-//        db.deleteTable();
-//        db.createTable();
-//        db.addItem(new DatabaseItem(135));
-//        db.addItem(new DatabaseItem("Bench", 145));
-//        db.addItem(new DatabaseItem("Squat", 235));
-//        db.addItem(new DatabaseItem("Bench", 170));
-//        db.addItem(new DatabaseItem("Deadlift", 140));
-//        db.addItem(new DatabaseItem("Squat", 260));
-//        db.addItem(new DatabaseItem("Bench", 200));
-//        db.addItem(new DatabaseItem("Bench", 205));
-//        db.addItem(new DatabaseItem("Deadlift", 160));
-//        db.addItem(new DatabaseItem("Deadlift", 170));
-//        db.addItem(new DatabaseItem("Squat", 300));
-//        db.addItem(new DatabaseItem("Bench", 220));
-//        db.addItem(new DatabaseItem("Squat", 320));
-
-        printItems(); // Uncomment this if you want to get the items printed to logcat
-//        clearItems();
-//        printItems();
     }
 
-    public void printItems() {
-        DBHandler db = new DBHandler(getActivity(),"bench");
+    public void printItems(String tableName) {
+        DBHandler db = new DBHandler(getActivity(), tableName);
 
         // Reading all items
-        Log.d("SQL: ", "Reading all items...");
+        Log.d("SQL: ", "Reading all items from "+tableName+"...");
         List<DatabaseItem> contacts = db.getAllItems();
 
         for (DatabaseItem cn : contacts) {
@@ -73,8 +51,8 @@ public class LogFragment extends Fragment {
         db.close();
     }
 
-    public void clearItems() {
-        DBHandler db = new DBHandler(getActivity());
+    public void clearItems(String tableName) {
+        DBHandler db = new DBHandler(getActivity(), tableName);
         db.deleteAllItems();
         String log = "Clearing all items...";
         Log.d("SQL: ", log);
