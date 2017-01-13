@@ -30,16 +30,16 @@ public class LogFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        DBHandler db = new DBHandler(getActivity());
+        DBHandler db = new DBHandler(getActivity(), "bench");
 
-//        db.addItem(new DatabaseItem("Bench", 135));
+//        db.deleteTable();
+//        db.createTable();
+//        db.addItem(new DatabaseItem(135));
 //        db.addItem(new DatabaseItem("Bench", 145));
 //        db.addItem(new DatabaseItem("Squat", 235));
 //        db.addItem(new DatabaseItem("Bench", 170));
@@ -59,14 +59,14 @@ public class LogFragment extends Fragment {
     }
 
     public void printItems() {
-        DBHandler db = new DBHandler(getActivity());
+        DBHandler db = new DBHandler(getActivity(),"bench");
 
         // Reading all items
         Log.d("SQL: ", "Reading all items...");
         List<DatabaseItem> contacts = db.getAllItems();
 
         for (DatabaseItem cn : contacts) {
-            String log = "ID: "+cn.getID()+", Item: " + cn.getItem() + ", Value: " + cn.getValue();
+            String log = "ID: "+cn.getID()+", Value: " + cn.getValue();
             // Writing Items to log
             Log.d("SQL: ", log);
         }
