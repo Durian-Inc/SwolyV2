@@ -1,5 +1,6 @@
 package com.tripidevs.swoly.log;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,6 @@ import java.util.List;
 public class LogFragment extends Fragment {
 
     TextView test;
-    DBHandler dbHandler;
 
     @Nullable
     @Override
@@ -34,6 +34,18 @@ public class LogFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        String tableName = "bench";
+        DBHandler db = new DBHandler(getActivity(), tableName);
+
+//        db.logAllTables();
+//        db.deleteTable();
+//        db.createTable();
+//        db.addItem(new DatabaseItem(13));
+
+
+//        printItems(tableName); // Uncomment this if you want to get the items printed to logcat
+//        clearItems(tableName);
+//        printItems();
     }
 
     public void printItems(String tableName) {

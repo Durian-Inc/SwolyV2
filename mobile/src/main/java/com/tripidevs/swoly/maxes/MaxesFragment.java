@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tripidevs.swoly.DBHandler;
 import com.tripidevs.swoly.DatabaseItem;
@@ -28,12 +29,28 @@ public class MaxesFragment extends Fragment {
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<MaxesCard> list = new ArrayList<>();
-    ArrayList<DatabaseItem> currMaxes = new ArrayList<>();
+    ArrayList<DatabaseItem> currMaxes;
+    ArrayList<String> liftNames;
     FloatingActionButton floatingActionButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try{
+            DBHandler dbHandler = new DBHandler(getActivity());
+            liftNames = dbHandler.listAllTables();
+            DBHandler currentTable;
+            for(String liftName: liftNames){
+                currentTable = new DBHandler(getActivity(), liftName);
+                currMaxes = currentTable.getAllItems();
+                MaxesCard newMax = new MaxesCard(createTitle(liftName), MaxesAdapter
+                        .findLastValue(currentTable, liftName));
+                list.add(newMax);
+            }
+        }
+        catch (Exception e){
+
+        }
     }
 
     @Nullable
@@ -62,14 +79,6 @@ public class MaxesFragment extends Fragment {
         });
     }
 
-    protected static void percentageClick(Button button, TextView
-            weight){
-        float newWeight, oldWeight = Float.parseFloat(weight.getText().toString
-                ());
-        float percentage = Float.parseFloat(button.getText().toString())/100;
-        newWeight = (((oldWeight*percentage)-45)/2);
-        weight.setText(String.valueOf(newWeight));
-    }
 
     public void createNewMax(){
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
@@ -81,6 +90,7 @@ public class MaxesFragment extends Fragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String newTitle;
                         EditText userInputName = (EditText) v.findViewById(R.id
                                 .txtLiftName);
                         EditText userInputWeight = (EditText) v.findViewById
@@ -88,14 +98,12 @@ public class MaxesFragment extends Fragment {
                         String name = userInputName.getText().toString();
                         int weight = Integer.parseInt( userInputWeight.getText()
                                 .toString());
-                        DBHandler db = new DBHandler(getActivity(), name
-                                .toLowerCase());
-                        db.createTable();
+                        DBHandler db = new DBHandler(getActivity(),
+                                createValidString(name.toLowerCase()));
                         db.addItem(new DatabaseItem(weight));
                         MaxesCard newMax = new MaxesCard(name,weight);
                         list.add(newMax);
                         adapter.notifyDataSetChanged();
-                        printItems(name);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -110,19 +118,27 @@ public class MaxesFragment extends Fragment {
 
     }
 
-    public void printItems(String tableName) {
-        DBHandler db = new DBHandler(getActivity(), tableName);
 
-        // Reading all items
-        Log.d("SQL: ", "Reading all items from "+tableName+"...");
-        List<DatabaseItem> contacts = db.getAllItems();
-
-        for (DatabaseItem cn : contacts) {
-            String log = "ID: "+cn.getID()+", Value: " + cn.getValue();
-            // Writing Items to log
-            Log.d("SQL: ", log);
+    protected static String createValidString(String oldString){
+        String newString="";
+        for(Character character: oldString.toCharArray())
+        {
+            if(!character.equals(" "))
+                newString+="_";
+            else
+                newString+=character;
         }
-        db.close();
+        return newString;
     }
 
+    protected static String createTitle(String oldString){
+        String newString="";
+        for(Character character: oldString.toCharArray()){
+            if(character.equals("_"))
+                newString+=" ";
+            else
+                newString+=character;
+        }
+        return newString;
+    }
 }

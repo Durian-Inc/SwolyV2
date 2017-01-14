@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "swolyItems";
 
     // Contacts table name
-    private String TABLE_NAME = "items";
+    private String TABLE_NAME = "weight";
 
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
@@ -27,12 +28,15 @@ public class DBHandler extends SQLiteOpenHelper {
 
     // Constructor
     public DBHandler(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+       super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     public DBHandler(Context context, String table) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.TABLE_NAME = table;
+        if(!doesTableExist(table)&&!table.equals("weight")) {
+            createTable();
+        }
     }
 
 
@@ -93,8 +97,8 @@ public class DBHandler extends SQLiteOpenHelper {
         return item;
     }
 
-    public List<DatabaseItem> getAllItems() {
-        List<DatabaseItem> itemList = new ArrayList<DatabaseItem>();
+    public ArrayList<DatabaseItem> getAllItems() {
+        ArrayList<DatabaseItem> itemList = new ArrayList<DatabaseItem>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
 
@@ -155,5 +159,53 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, "1", null);
         db.close();
+    }
+
+    public ArrayList<String> listAllTables() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String> arrTblNames = new ArrayList<String>();
+        Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
+
+        if (c.moveToFirst()) {
+            while ( !c.isAfterLast() ) {
+                String table = c.getString( c.getColumnIndex("name"));
+                if(!table.equals("weight") && !table.equals("android_metadata")) { //will not return the weight table in the array
+                    arrTblNames.add(c.getString(c.getColumnIndex("name")));
+                }
+                c.moveToNext();
+            }
+        }
+        c.close();
+        db.close();
+        return arrTblNames;
+    }
+
+    public boolean doesTableExist(String tableName) {
+        ArrayList<String> tables = listAllTables();
+
+        for (int i=0; i<tables.size();i++) {
+            if (tableName.equals(tables.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean doesTableExist() {
+        ArrayList<String> tables = listAllTables();
+
+        for (int i=0; i<tables.size();i++) {
+            if (TABLE_NAME.equals(tables.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void logAllTables() {
+        ArrayList<String> tables = listAllTables();
+
+        for (int i=0;i<tables.size();i++) {
+            Log.d("SQL: ", "Table: " + tables.get(i));
+        }
     }
 }
