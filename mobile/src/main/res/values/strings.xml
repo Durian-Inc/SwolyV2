@@ -5,4 +5,30 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="default_preset_1">55</string>
+    <string name="default_preset_2">60</string>
+    <string name="default_preset_3">65</string>
+    <string name="default_preset_4">70</string>
+    <string name="default_preset_5">75</string>
+
+    <string-array name="liftNames">
+        <item>Bench</item>
+        <item>Deadlift</item>
+        <item>Squat</item>
+        <item>Incline Bench</item>
+        <item>Lift here</item>
+        <item>Another lift</item>
+    </string-array>
+
+    <integer-array name="liftWeights">
+        <item>135</item>
+        <item>225</item>
+        <item>335</item>
+        <item>415</item>
+        <item>445</item>
+        <item>500</item>
+    </integer-array>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
