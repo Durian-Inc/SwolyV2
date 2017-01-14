@@ -45,6 +45,7 @@ public class MaxesFragment extends Fragment {
                     list.add(newMax);
                 }
             }
+            dbHandler.close();
         }
         catch (Exception e){
 
@@ -101,6 +102,7 @@ public class MaxesFragment extends Fragment {
                         MaxesCard newMax = new MaxesCard(name,weight);
                         list.add(newMax);
                         adapter.notifyDataSetChanged();
+                        db.close();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

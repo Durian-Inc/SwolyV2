@@ -128,6 +128,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                         dbHandler.close();
                         maxes.remove(position);
                         notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, maxes.size());
                         return true;
                     case R.id.menu_deleteHistory:
                         DBHandler db = new DBHandler(view.getContext(), MaxesFragment
@@ -156,6 +157,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         float percentage = Float.parseFloat(button.getText().toString())/100;
         newWeight = (((oldWeight*percentage)-45)/2);
         currMax.setText(String.valueOf(newWeight));
+        db.close();
     }
 
     protected static int findLastValue(DBHandler db, String tableName){

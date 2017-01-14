@@ -8,5 +8,5 @@
         android:title="Delete" />
     <item
         android:id="@+id/menu_deleteHistory"
-        android:title="Delte Histoy" />
+        android:title="Delete History" />
 </menu>
