@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.tripidevs.swoly.home.HomeFragment;
 import com.tripidevs.swoly.log.LogFragment;
-import com.tripidevs.swoly.maxese.MaxesFragment;
+import com.tripidevs.swoly.maxes.MaxesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
