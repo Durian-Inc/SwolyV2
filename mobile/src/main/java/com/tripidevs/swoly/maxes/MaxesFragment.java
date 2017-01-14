@@ -112,7 +112,6 @@ public class MaxesFragment extends Fragment {
 
     }
 
-
     protected static String createValidString(String oldString){
         String newString="";
         for(Character character: oldString.toCharArray())

@@ -103,8 +103,8 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                                         EditText newMax = (EditText) v
                                                 .findViewById(R.id.editNewMax);
                                         DBHandler dbHandler = new DBHandler(v
-                                                .getContext(), lift.getText()
-                                                .toString().toLowerCase());
+                                                .getContext(), MaxesFragment.createValidString(lift.getText()
+                                            .toString().toLowerCase()));
                                         dbHandler.addItem(new DatabaseItem
                                                 (Integer.parseInt(newMax
                                                         .getText().toString())));
@@ -130,7 +130,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
 
     protected void percentageClick(Button button,TextView title,
                                    TextView currMax, View v){
-        String liftName = MaxesFragment.createTitle(title.getText().toString()
+        String liftName = MaxesFragment.createValidString(title.getText().toString()
                 .toLowerCase());
         DBHandler db = new DBHandler(v.getContext(), liftName);
         float newWeight, oldWeight = findLastValue(db, liftName);

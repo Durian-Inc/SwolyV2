@@ -34,6 +34,8 @@ public class LogFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -50,7 +52,6 @@ public class LogFragment extends Fragment {
 
 //        printItems(tableName); // Uncomment this if you want to get the items printed to logcat
 //        clearItems(tableName);
-//        printItems();
 //        db.close();
     }
 
