@@ -52,6 +52,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         MaxesCard max = maxes.get(position);
         holder.lift.setText(max.getLiftName());
         holder.weight.setText(String.valueOf(max.getLiftMax()));
+        holder.cardPosition = holder.getAdapterPosition();
         for (final Button button: holder.cardButtons) {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,7 +65,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         holder.vertMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopUp(v, holder.lift, holder.weight);
+                showPopUp(v, holder.lift, holder.weight, holder.cardPosition);
             }
         });
     }
@@ -74,8 +75,9 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         return maxes.size();
     }
 
-    protected void showPopUp(final View view, final TextView lift, final TextView weight){
-        PopupMenu popup = new PopupMenu(view.getContext(),view);
+    protected void showPopUp(final View view, final TextView lift, final
+    TextView weight, final int position){
+        final PopupMenu popup = new PopupMenu(view.getContext(),view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.max_card_menu, popup.getMenu());
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -103,8 +105,9 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                                         EditText newMax = (EditText) v
                                                 .findViewById(R.id.editNewMax);
                                         DBHandler dbHandler = new DBHandler(v
-                                                .getContext(), lift.getText()
-                                                .toString().toLowerCase());
+                                                .getContext(), MaxesFragment
+                                                .createValidString(lift.getText()
+                                                        .toString().toLowerCase()));
                                         dbHandler.addItem(new DatabaseItem
                                                 (Integer.parseInt(newMax
                                                         .getText().toString())));
@@ -117,8 +120,24 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                         alertDialog.show();
                         return true;
                     case R.id.menu_delete:
-                        DBHandler dbHandler = new DBHandler(view.getContext());
-                        dbHandler.deleteAllTables();
+                        DBHandler dbHandler = new DBHandler(view
+                                .getContext(), MaxesFragment
+                                .createValidString(lift.getText()
+                                        .toString().toLowerCase()));
+                        dbHandler.addItem(new DatabaseItem(-1));
+                        dbHandler.close();
+                        maxes.remove(position);
+                        notifyItemRemoved(position);
+                        return true;
+                    case R.id.menu_deleteHistory:
+                        DBHandler db = new DBHandler(view.getContext(), MaxesFragment
+                                .createValidString(lift.getText()
+                                        .toString().toLowerCase()));
+                        db.deleteTable();
+                        db.createTable();
+                        db.addItem(new DatabaseItem(Integer.parseInt(weight
+                                .getText().toString())));
+                        db.close();
                         return true;
                     default:
                         return false;
@@ -130,7 +149,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
 
     protected void percentageClick(Button button,TextView title,
                                    TextView currMax, View v){
-        String liftName = MaxesFragment.createTitle(title.getText().toString()
+        String liftName = MaxesFragment.createValidString(title.getText().toString()
                 .toLowerCase());
         DBHandler db = new DBHandler(v.getContext(), liftName);
         float newWeight, oldWeight = findLastValue(db, liftName);
@@ -172,7 +191,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         ArrayList<AppCompatButton> cardButtons = new ArrayList<>();
         ImageView vertMenu;
         FloatingActionButton floatingActionButton;
-
+        int cardPosition;
         public MaxesViewHolder(View view){
             super(view);
             lift = (TextView) view.findViewById(R.id.liftTitle);

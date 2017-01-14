@@ -35,12 +35,15 @@ public class MaxesFragment extends Fragment {
             DBHandler dbHandler = new DBHandler(getActivity());
             liftNames = dbHandler.listAllTables();
             DBHandler currentTable;
+            int value;
             for(String liftName: liftNames){
                 currentTable = new DBHandler(getActivity(), liftName);
                 currMaxes = currentTable.getAllItems();
-                MaxesCard newMax = new MaxesCard(createTitle(liftName), MaxesAdapter
-                        .findLastValue(currentTable, liftName));
-                list.add(newMax);
+                value = MaxesAdapter.findLastValue(currentTable, liftName);
+                if(value != -1){
+                    MaxesCard newMax = new MaxesCard(createTitle(liftName), value);
+                    list.add(newMax);
+                }
             }
         }
         catch (Exception e){
