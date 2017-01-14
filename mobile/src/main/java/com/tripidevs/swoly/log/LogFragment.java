@@ -1,6 +1,8 @@
 package com.tripidevs.swoly.log;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,8 @@ import com.tripidevs.swoly.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.id.list;
 
 public class LogFragment extends Fragment {
 
@@ -35,17 +39,17 @@ public class LogFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        String tableName = "deadlift";
-        DBHandler db = new DBHandler(getActivity());
+        String tableName = "bench";
+        DBHandler db = new DBHandler(getActivity(),tableName);
 
 //        db.deleteTable();
 //        db.createTable();
-//        db.addItem(new DatabaseItem(13));
-
+//        db.addItem(new DatabaseItem(155));
 
 //        printItems(tableName); // Uncomment this if you want to get the items printed to logcat
 //        clearItems(tableName);
 //        printItems();
+        db.close();
     }
 
     public void printItems(String tableName) {

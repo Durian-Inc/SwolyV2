@@ -95,11 +95,12 @@ public class DBHandler extends SQLiteOpenHelper {
 
         DatabaseItem item = new DatabaseItem(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(2)));
         // return item
+        cursor.close();
         return item;
     }
 
-    public List<DatabaseItem> getAllItems() {
-        List<DatabaseItem> itemList = new ArrayList<DatabaseItem>();
+    public ArrayList<DatabaseItem> getAllItems() {
+        ArrayList<DatabaseItem> itemList = new ArrayList<DatabaseItem>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
 
@@ -116,6 +117,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 itemList.add(item);
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         // return contact list
         return itemList;
