@@ -39,9 +39,11 @@ public class LogFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        String tableName = "bench";
-        DBHandler db = new DBHandler(getActivity(),tableName);
+//        String tableName = "bench";
+//        DBHandler db = new DBHandler(getActivity(),tableName);
 
+//        db.deleteAllTables();
+//        db.logAllTables();
 //        db.deleteTable();
 //        db.createTable();
 //        db.addItem(new DatabaseItem(155));
@@ -49,7 +51,7 @@ public class LogFragment extends Fragment {
 //        printItems(tableName); // Uncomment this if you want to get the items printed to logcat
 //        clearItems(tableName);
 //        printItems();
-        db.close();
+//        db.close();
     }
 
     public void printItems(String tableName) {

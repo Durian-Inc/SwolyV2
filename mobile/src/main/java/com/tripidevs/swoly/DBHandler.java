@@ -179,7 +179,6 @@ public class DBHandler extends SQLiteOpenHelper {
             }
         }
         c.close();
-        db.close();
         return arrTblNames;
     }
 
@@ -220,5 +219,6 @@ public class DBHandler extends SQLiteOpenHelper {
         for (String table : tables) {
            db.execSQL("DROP TABLE IF EXISTS " + table);
         }
+        db.close();
     }
 }
