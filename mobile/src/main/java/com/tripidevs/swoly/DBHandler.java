@@ -211,4 +211,14 @@ public class DBHandler extends SQLiteOpenHelper {
             Log.d("SQL: ", "Table: "+ table);
         }
     }
+
+    public void deleteAllTables() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<String> tables = listAllTables();
+
+        for (String table : tables) {
+           db.execSQL("DROP TABLE IF EXISTS " + table);
+        }
+    }
 }
