@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-  <ListPreference
-    android:entries="@array/themes"
-    android:entryValues="@array/themeValues"></ListPreference>
+<PreferenceScreen xmlns:android = "http://schemas.android.com/apk/res/android">
+<!--Use for more than light/dark themes-->
+<!--
+<ListPreference
+  android:entries = "@array/themes"
+  android:entryValues = "@array/themeValues"
+  android:title="@string/themeTitle"/>
+-->
+<SwitchPreference
+  android:title="@string/themeTitle"
+  android:defaultValue="@string/themeDefault"
+  android:key="themePreference"
+  />
+<ListPreference
+  android:title="@string/outputTitle"
+  android:entries="@array/outputEntries"
+  android:entryValues="@array/outputValues"
+  android:key="outputPreference"
+  android:summary="%s"
+  android:defaultValue="0"/>
+  <EditTextPreference
+    android:id="@+id/barWeightPreference"
+    android:title="@string/barWeightTitle"
+    android:inputType="number"
+    android:defaultValue="45"
+    android:summary="@string/barWeightSummary"
+    android:key="barWeight"/>
 </PreferenceScreen>
