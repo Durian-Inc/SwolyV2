@@ -1,6 +1,5 @@
 package com.tripidevs.swoly;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
