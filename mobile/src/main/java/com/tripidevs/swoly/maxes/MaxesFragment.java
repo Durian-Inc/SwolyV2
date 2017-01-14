@@ -85,7 +85,6 @@ public class MaxesFragment extends Fragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String newTitle;
                         EditText userInputName = (EditText) v.findViewById(R.id
                                 .txtLiftName);
                         EditText userInputWeight = (EditText) v.findViewById
@@ -118,8 +117,8 @@ public class MaxesFragment extends Fragment {
         String newString="";
         for(Character character: oldString.toCharArray())
         {
-            if(!character.equals(" "))
-                newString+="_";
+            if(character == ' ')
+                newString+='_';
             else
                 newString+=character;
         }
@@ -129,11 +128,12 @@ public class MaxesFragment extends Fragment {
     protected static String createTitle(String oldString){
         String newString="";
         for(Character character: oldString.toCharArray()){
-            if(character.equals("_"))
-                newString+=" ";
+            if(character == '_')
+                newString+=' ';
             else
                 newString+=character;
         }
         return newString;
     }
+
 }

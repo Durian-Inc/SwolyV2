@@ -117,7 +117,8 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                         alertDialog.show();
                         return true;
                     case R.id.menu_delete:
-
+                        DBHandler dbHandler = new DBHandler(view.getContext());
+                        dbHandler.deleteAllTables();
                         return true;
                     default:
                         return false;
