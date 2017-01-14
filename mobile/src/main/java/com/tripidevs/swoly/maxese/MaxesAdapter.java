@@ -1,4 +1,4 @@
-package com.tripidevs.swoly.maxes;
+package com.tripidevs.swoly.maxese;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
