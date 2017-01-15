@@ -17,6 +17,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:elevation="6dp"
+        android:background="?android:attr/selectableItemBackground"
         />
     <include
         layout="@layout/content_maxes"

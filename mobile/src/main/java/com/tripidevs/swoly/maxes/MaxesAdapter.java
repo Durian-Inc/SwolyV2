@@ -14,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,6 +36,7 @@ import java.util.List;
 public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHolder> {
     ArrayList<MaxesCard> maxes = new ArrayList<>();
 
+    private int lastPos = -1;
 
     public MaxesAdapter(ArrayList<MaxesCard> maxes){
         this.maxes = maxes;
@@ -68,6 +71,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                 showPopUp(v, holder.lift, holder.weight, holder.cardPosition);
             }
         });
+        setAnimation(holder.itemView, position);
     }
 
     @Override
@@ -80,6 +84,12 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         final PopupMenu popup = new PopupMenu(view.getContext(),view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.max_card_menu, popup.getMenu());
+        final Animation deleteAnimation = AnimationUtils.loadAnimation(view.getContext(),
+                android.R.anim
+                .slide_out_right);
+        final Animation editItemAnimation = AnimationUtils.loadAnimation
+                (weight.getContext(), android.R
+                        .anim.fade_in);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -112,6 +122,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                                                 (Integer.parseInt(newMax
                                                         .getText().toString())));
                                         dbHandler.close();
+                                        weight.startAnimation(editItemAnimation);
                                         weight.setText(newMax.getText());
                                     }
                                 })
@@ -127,6 +138,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                         dbHandler.addItem(new DatabaseItem(-1));
                         dbHandler.close();
                         maxes.remove(position);
+                        view.startAnimation(deleteAnimation);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, maxes.size());
                         return true;
@@ -150,12 +162,15 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
 
     protected void percentageClick(Button button,TextView title,
                                    TextView currMax, View v){
+        final Animation percentAnimation = AnimationUtils.loadAnimation
+                (currMax.getContext(), android.R.anim.fade_in);
         String liftName = MaxesFragment.createValidString(title.getText().toString()
                 .toLowerCase());
         DBHandler db = new DBHandler(v.getContext(), liftName);
         float newWeight, oldWeight = findLastValue(db, liftName);
         float percentage = Float.parseFloat(button.getText().toString())/100;
-        newWeight = (((oldWeight*percentage)-45)/2);
+        newWeight = Math.round((((oldWeight*percentage)-45)/2));
+        currMax.startAnimation(percentAnimation);
         currMax.setText(String.valueOf(newWeight));
         db.close();
     }
@@ -184,6 +199,15 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
             Log.d("SQL: ", log);
         }
         db.close();
+    }
+
+    private void  setAnimation(View viewToAnimate, int pos){
+        if(pos > lastPos){
+            Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(),
+                    android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPos = pos;
+        }
     }
 
     public static class MaxesViewHolder extends RecyclerView.ViewHolder{
