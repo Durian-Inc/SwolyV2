@@ -45,7 +45,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
     @Override
     public MaxesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout
-                .card_maxes, parent, false);
+                .maxes_card, parent, false);
         MaxesViewHolder maxesViewHolder = new MaxesViewHolder(view);
         return maxesViewHolder;
     }
@@ -97,7 +97,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                     case R.id.menu_edit:
                         LayoutInflater layoutInflater = LayoutInflater.from
                                 (view.getContext());
-                        final View v = layoutInflater.inflate(R.layout.dialog_max_edit,
+                        final View v = layoutInflater.inflate(R.layout.maxes_dialog_edit,
                                 null);
                         final AlertDialog.Builder alertBuilder = new
                                 AlertDialog.Builder(v.getContext());

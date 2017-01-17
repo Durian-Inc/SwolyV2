@@ -55,7 +55,7 @@ public class MaxesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_maxes,container,false);
+        View v = inflater.inflate(R.layout.maxes_fragment,container,false);
         recyclerView = (RecyclerView) v.findViewById(R.id.maxesRecyclerView);
         return v;
     }
@@ -81,7 +81,7 @@ public class MaxesFragment extends Fragment {
 
     public void createNewMax(){
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        final View v = layoutInflater.inflate(R.layout.dialog_max_input, null);
+        final View v = layoutInflater.inflate(R.layout.maxes_dialog_input, null);
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
         alertBuilder.setView(v);
         alertBuilder
@@ -116,7 +116,6 @@ public class MaxesFragment extends Fragment {
         alertDialog.show();
 
     }
-
 
     protected static String createValidString(String oldString){
         String newString="";
