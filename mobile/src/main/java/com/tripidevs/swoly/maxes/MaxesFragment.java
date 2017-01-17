@@ -35,13 +35,17 @@ public class MaxesFragment extends Fragment {
             DBHandler dbHandler = new DBHandler(getActivity());
             liftNames = dbHandler.listAllTables();
             DBHandler currentTable;
+            int value;
             for(String liftName: liftNames){
                 currentTable = new DBHandler(getActivity(), liftName);
                 currMaxes = currentTable.getAllItems();
-                MaxesCard newMax = new MaxesCard(createTitle(liftName), MaxesAdapter
-                        .findLastValue(currentTable, liftName));
-                list.add(newMax);
+                value = MaxesAdapter.findLastValue(currentTable, liftName);
+                if(value != -1){
+                    MaxesCard newMax = new MaxesCard(createTitle(liftName), value);
+                    list.add(newMax);
+                }
             }
+            dbHandler.close();
         }
         catch (Exception e){
 
@@ -51,7 +55,7 @@ public class MaxesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_maxes,container,false);
+        View v = inflater.inflate(R.layout.maxes_fragment,container,false);
         recyclerView = (RecyclerView) v.findViewById(R.id.maxesRecyclerView);
         return v;
     }
@@ -77,7 +81,7 @@ public class MaxesFragment extends Fragment {
 
     public void createNewMax(){
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        final View v = layoutInflater.inflate(R.layout.dialog_max_input, null);
+        final View v = layoutInflater.inflate(R.layout.maxes_dialog_input, null);
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
         alertBuilder.setView(v);
         alertBuilder
@@ -98,6 +102,7 @@ public class MaxesFragment extends Fragment {
                         MaxesCard newMax = new MaxesCard(name,weight);
                         list.add(newMax);
                         adapter.notifyDataSetChanged();
+                        db.close();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

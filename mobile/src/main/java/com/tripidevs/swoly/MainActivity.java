@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -39,15 +40,15 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Fragment fragment = null;
-        Class fragmentClass = HomeFragment.class;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
+//        Fragment fragment = null;
+//        Class fragmentClass = HomeFragment.class;
+//        try {
+//            fragment = (Fragment) fragmentClass.newInstance();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
     }
 
     @Override
@@ -117,12 +118,26 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction();
 
+
+        if(fragment instanceof MaxesFragment == false){
+            transaction
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .replace(R.id.content_main, fragment)
+                    .commit();
+        }
+        else{
+            transaction
+                    .replace(R.id.content_main, fragment)
+                    .commit();
+        }
+
+        drawer.closeDrawers();
         item.setChecked(true);
         setTitle(item.getTitle());
-        drawer.closeDrawers();
+
         return true;
     }
 }
