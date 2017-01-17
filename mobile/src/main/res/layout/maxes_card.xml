@@ -58,13 +58,14 @@
 
             <TextView
                 android:text="lbs"
-                android:textSize="70sp"
+                android:textSize="50sp"
                 android:textColor="@color/actionBarGray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/weight"
                 android:layout_toEndOf="@+id/weight"
-                android:id="@+id/txtLbs"/>
+                android:id="@+id/txtLbs"
+                />
 
             <ImageView
                 android:layout_width="wrap_content"
