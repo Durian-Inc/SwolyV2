@@ -1,13 +1,15 @@
 package com.tripidevs.swoly;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.Cursor;
+import android.content.Context;
+import android.content.ContentValues;
 import android.util.Log;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -25,9 +27,9 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_VALUE = "value";
 
-    // Constructor
+//     Constructor
     public DBHandler(Context context) {
-       super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     public DBHandler(Context context, String table) {
@@ -93,6 +95,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         DatabaseItem item = new DatabaseItem(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(2)));
         // return item
+        cursor.close();
         return item;
     }
 
@@ -114,6 +117,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 itemList.add(item);
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         // return contact list
         return itemList;
@@ -175,7 +179,6 @@ public class DBHandler extends SQLiteOpenHelper {
             }
         }
         c.close();
-        db.close();
         return arrTblNames;
     }
 
@@ -203,8 +206,19 @@ public class DBHandler extends SQLiteOpenHelper {
     public void logAllTables() {
         ArrayList<String> tables = listAllTables();
 
-        for (int i=0;i<tables.size();i++) {
-            Log.d("SQL: ", "Table: " + tables.get(i));
+        for (String table: tables) {
+            Log.d("SQL: ", "Table: "+ table);
         }
+    }
+
+    public void deleteAllTables() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<String> tables = listAllTables();
+
+        for (String table : tables) {
+           db.execSQL("DROP TABLE IF EXISTS " + table);
+        }
+        db.close();
     }
 }

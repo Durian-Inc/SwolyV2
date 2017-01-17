@@ -14,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,6 +36,7 @@ import java.util.List;
 public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHolder> {
     ArrayList<MaxesCard> maxes = new ArrayList<>();
 
+    private int lastPos = -1;
 
     public MaxesAdapter(ArrayList<MaxesCard> maxes){
         this.maxes = maxes;
@@ -52,6 +55,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         MaxesCard max = maxes.get(position);
         holder.lift.setText(max.getLiftName());
         holder.weight.setText(String.valueOf(max.getLiftMax()));
+        holder.cardPosition = holder.getAdapterPosition();
         for (final Button button: holder.cardButtons) {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,9 +68,10 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         holder.vertMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopUp(v, holder.lift, holder.weight);
+                showPopUp(v, holder.lift, holder.weight, holder.cardPosition);
             }
         });
+        setAnimation(holder.itemView, position);
     }
 
     @Override
@@ -74,10 +79,17 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         return maxes.size();
     }
 
-    protected void showPopUp(final View view, final TextView lift, final TextView weight){
-        PopupMenu popup = new PopupMenu(view.getContext(),view);
+    protected void showPopUp(final View view, final TextView lift, final
+    TextView weight, final int position){
+        final PopupMenu popup = new PopupMenu(view.getContext(),view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.max_card_menu, popup.getMenu());
+        final Animation deleteAnimation = AnimationUtils.loadAnimation(view.getContext(),
+                android.R.anim
+                .slide_out_right);
+        final Animation editItemAnimation = AnimationUtils.loadAnimation
+                (weight.getContext(), android.R
+                        .anim.fade_in);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -103,12 +115,14 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                                         EditText newMax = (EditText) v
                                                 .findViewById(R.id.editNewMax);
                                         DBHandler dbHandler = new DBHandler(v
-                                                .getContext(), lift.getText()
-                                                .toString().toLowerCase());
+                                                .getContext(), MaxesFragment
+                                                .createValidString(lift.getText()
+                                                        .toString().toLowerCase()));
                                         dbHandler.addItem(new DatabaseItem
                                                 (Integer.parseInt(newMax
                                                         .getText().toString())));
                                         dbHandler.close();
+                                        weight.startAnimation(editItemAnimation);
                                         weight.setText(newMax.getText());
                                     }
                                 })
@@ -117,7 +131,26 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                         alertDialog.show();
                         return true;
                     case R.id.menu_delete:
-
+                        DBHandler dbHandler = new DBHandler(view
+                                .getContext(), MaxesFragment
+                                .createValidString(lift.getText()
+                                        .toString().toLowerCase()));
+                        dbHandler.addItem(new DatabaseItem(-1));
+                        dbHandler.close();
+                        maxes.remove(position);
+                        view.startAnimation(deleteAnimation);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, maxes.size());
+                        return true;
+                    case R.id.menu_deleteHistory:
+                        DBHandler db = new DBHandler(view.getContext(), MaxesFragment
+                                .createValidString(lift.getText()
+                                        .toString().toLowerCase()));
+                        db.deleteTable();
+                        db.createTable();
+                        db.addItem(new DatabaseItem(Integer.parseInt(weight
+                                .getText().toString())));
+                        db.close();
                         return true;
                     default:
                         return false;
@@ -129,13 +162,17 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
 
     protected void percentageClick(Button button,TextView title,
                                    TextView currMax, View v){
-        String liftName = MaxesFragment.createTitle(title.getText().toString()
+        final Animation percentAnimation = AnimationUtils.loadAnimation
+                (currMax.getContext(), android.R.anim.fade_in);
+        String liftName = MaxesFragment.createValidString(title.getText().toString()
                 .toLowerCase());
         DBHandler db = new DBHandler(v.getContext(), liftName);
         float newWeight, oldWeight = findLastValue(db, liftName);
         float percentage = Float.parseFloat(button.getText().toString())/100;
-        newWeight = (((oldWeight*percentage)-45)/2);
+        newWeight = Math.round((((oldWeight*percentage)-45)/2));
+        currMax.startAnimation(percentAnimation);
         currMax.setText(String.valueOf(newWeight));
+        db.close();
     }
 
     protected static int findLastValue(DBHandler db, String tableName){
@@ -164,6 +201,15 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         db.close();
     }
 
+    private void  setAnimation(View viewToAnimate, int pos){
+        if(pos > lastPos){
+            Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(),
+                    android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPos = pos;
+        }
+    }
+
     public static class MaxesViewHolder extends RecyclerView.ViewHolder{
         TextView lift;
         TextView weight;
@@ -171,7 +217,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         ArrayList<AppCompatButton> cardButtons = new ArrayList<>();
         ImageView vertMenu;
         FloatingActionButton floatingActionButton;
-
+        int cardPosition;
         public MaxesViewHolder(View view){
             super(view);
             lift = (TextView) view.findViewById(R.id.liftTitle);

@@ -71,12 +71,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="16dp"
-                android:paddingTop="24dp"
+                android:paddingTop="16dp"
                 android:src="@drawable/ic_more_vert_black_24dp"
                 android:id="@+id/cardMenu"
                 android:layout_alignParentRight="true"
                 app:srcCompat="@drawable/ic_more_vert_black_24dp"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:cropToPadding="true"/>
 
             <View
                 android:layout_width="wrap_content"
@@ -98,11 +100,11 @@
                 android:textColor="@color/actionBarGray"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:background="?android:selectableItemBackground"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/titleDividerNoCustom"
                 android:layout_marginLeft="8dp"
                 android:paddingTop="8dp"
+                android:background="?android:attr/selectableItemBackground"
                 />
 
             <Button
@@ -115,7 +117,7 @@
                 android:textColor="@color/actionBarGray"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:background="?android:selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_alignTop="@+id/preset1"
                 android:layout_toRightOf="@+id/preset1"
                 android:layout_marginLeft="8dp"
@@ -132,7 +134,7 @@
                 android:textColor="@color/actionBarGray"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:background="?android:selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_alignBaseline="@+id/preset1"
                 android:layout_alignBottom="@+id/preset1"
                 android:layout_toRightOf="@+id/preset4"
@@ -149,7 +151,7 @@
                 android:textColor="@color/actionBarGray"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:background="?android:selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_alignBaseline="@+id/preset3"
                 android:layout_alignBottom="@+id/preset3"
                 android:layout_toRightOf="@+id/preset3"
@@ -166,7 +168,7 @@
                 android:textColor="@color/actionBarGray"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:background="?android:selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_alignBaseline="@+id/preset2"
                 android:layout_alignBottom="@+id/preset2"
                 android:layout_centerInParent="false"
