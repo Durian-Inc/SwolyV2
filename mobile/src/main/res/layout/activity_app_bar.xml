@@ -19,18 +19,24 @@
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ToolbarTheme"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </android.support.design.widget.AppBarLayout>
 
-    <fragment
-        android:layout_marginTop="55dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.tripidevs.swoly.home.HomeFragment"
-        android:id="@+id/content_main"
-        android:layout_weight="1"
-        tools:layout="@layout/home_fragment"/>
+        android:id="@+id/content_main">
+
+        <fragment
+            android:layout_marginTop="55dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.tripidevs.swoly.home.HomeFragment"
+            android:layout_weight="1"
+            tools:layout="@layout/home_fragment"/>
+
+    </LinearLayout>
 
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->
