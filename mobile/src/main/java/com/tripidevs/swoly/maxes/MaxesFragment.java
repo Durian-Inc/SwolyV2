@@ -97,7 +97,7 @@ public class MaxesFragment extends Fragment {
                         int weight = Integer.parseInt( userInputWeight.getText()
                                 .toString());
                         DBHandler db = new DBHandler(getActivity(),
-                                createValidString(name.toLowerCase()));
+                                createValidString(name.toLowerCase().trim()));
                         db.addItem(new DatabaseItem(weight));
                         MaxesCard newMax = new MaxesCard(name,weight);
                         list.add(newMax);
@@ -131,11 +131,15 @@ public class MaxesFragment extends Fragment {
 
     protected static String createTitle(String oldString){
         String newString="";
-        for(Character character: oldString.toCharArray()){
-            if(character == '_')
+        newString+=Character.toUpperCase(oldString.toCharArray()[0]);
+        for(int i = 1; i<oldString.length(); i++){
+            if(oldString.toCharArray()[i] == '_'){
                 newString+=' ';
+                newString+=Character.toUpperCase(oldString.toCharArray()[i+1]);
+                i++;
+            }
             else
-                newString+=character;
+                newString+=oldString.toCharArray()[i];
         }
         return newString;
     }

@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,7 +26,6 @@ import com.tripidevs.swoly.DatabaseItem;
 import com.tripidevs.swoly.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Innocent on 1/10/2017.
@@ -35,6 +33,7 @@ import java.util.List;
 
 public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHolder> {
     ArrayList<MaxesCard> maxes = new ArrayList<>();
+
 
     private int lastPos = -1;
 
@@ -101,6 +100,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                                 null);
                         final AlertDialog.Builder alertBuilder = new
                                 AlertDialog.Builder(v.getContext());
+
                         alertBuilder.setView(v);
                         alertBuilder
                                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -117,7 +117,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                                         DBHandler dbHandler = new DBHandler(v
                                                 .getContext(), MaxesFragment
                                                 .createValidString(lift.getText()
-                                                        .toString().toLowerCase()));
+                                                        .toString().toLowerCase().trim()));
                                         dbHandler.addItem(new DatabaseItem
                                                 (Integer.parseInt(newMax
                                                         .getText().toString())));
@@ -134,7 +134,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                         DBHandler dbHandler = new DBHandler(view
                                 .getContext(), MaxesFragment
                                 .createValidString(lift.getText()
-                                        .toString().toLowerCase()));
+                                        .toString().toLowerCase().trim()));
                         dbHandler.addItem(new DatabaseItem(-1));
                         dbHandler.close();
                         maxes.remove(position);
@@ -145,7 +145,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                     case R.id.menu_deleteHistory:
                         DBHandler db = new DBHandler(view.getContext(), MaxesFragment
                                 .createValidString(lift.getText()
-                                        .toString().toLowerCase()));
+                                        .toString().toLowerCase().trim()));
                         db.deleteTable();
                         db.createTable();
                         db.addItem(new DatabaseItem(Integer.parseInt(weight
@@ -165,7 +165,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         final Animation percentAnimation = AnimationUtils.loadAnimation
                 (currMax.getContext(), android.R.anim.fade_in);
         String liftName = MaxesFragment.createValidString(title.getText().toString()
-                .toLowerCase());
+                .toLowerCase().trim());
         DBHandler db = new DBHandler(v.getContext(), liftName);
         float newWeight, oldWeight = findLastValue(db, liftName);
         float percentage = Float.parseFloat(button.getText().toString())/100;
@@ -186,20 +186,6 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         return foundValue;
     }
 
-    public void printItems(String tableName, View v) {
-        DBHandler db = new DBHandler(v.getContext(), tableName);
-
-        // Reading all items
-        Log.d("SQL: ", "Reading all items from "+tableName+"...");
-        List<DatabaseItem> contacts = db.getAllItems();
-
-        for (DatabaseItem cn : contacts) {
-            String log = "ID: "+cn.getID()+", Value: " + cn.getValue();
-            // Writing Items to log
-            Log.d("SQL: ", log);
-        }
-        db.close();
-    }
 
     private void  setAnimation(View viewToAnimate, int pos){
         if(pos > lastPos){
@@ -218,6 +204,8 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         ImageView vertMenu;
         FloatingActionButton floatingActionButton;
         int cardPosition;
+        View viewCard;
+
         public MaxesViewHolder(View view){
             super(view);
             lift = (TextView) view.findViewById(R.id.liftTitle);
@@ -231,6 +219,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                 }
             }
             vertMenu = (ImageView) view.findViewById(R.id.cardMenu);
+            viewCard = view;
         }
     }
 
