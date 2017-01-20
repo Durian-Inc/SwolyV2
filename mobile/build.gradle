@@ -7,8 +7,9 @@ android {
         applicationId "com.tripidevs.swoly"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        multiDexEnabled true
+        versionCode 3
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
