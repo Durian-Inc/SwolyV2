@@ -3,21 +3,25 @@ package com.tripidevs.swoly.log;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.tripidevs.swoly.DBHandler;
 import com.tripidevs.swoly.DatabaseItem;
 import com.tripidevs.swoly.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class LogFragment extends Fragment {
-
-    TextView test;
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
+    RecyclerView.LayoutManager layoutManager;
+    ArrayList<String> names;
+    ArrayList<LogCard> list = new ArrayList<>();
+    ArrayList<DatabaseItem> items = new ArrayList<>();
 
     @Nullable
     @Override
@@ -28,47 +32,50 @@ public class LogFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try{
+            DBHandler dbHandler = new DBHandler(getActivity());
+            names = dbHandler.listAllTables();
+            DBHandler currentTable;
+            for(String currentName: names){
+                LogCard newLog = new LogCard(createTitle(currentName));
+                currentTable = new DBHandler(getContext(), currentName);
+                items = currentTable.getAllItems();
+                for(DatabaseItem item: items){
+                    if(item.getValue() != -1)
+                        newLog.addItem(item.getValue());
+                }
+                list.add(newLog);
+            }
+            dbHandler.close();
+        }
+        catch (Exception e){
 
+        }
 
     }
 
     @Override
     public void onStart() {
         super.onStart();
-//        String tableName = "bench";
-//        DBHandler db = new DBHandler(getActivity(),tableName);
-
-//        db.deleteAllTables();
-//        db.logAllTables();
-//        db.deleteTable();
-//        db.createTable();
-//        db.addItem(new DatabaseItem(155));
-
-//        printItems(tableName); // Uncomment this if you want to get the items printed to logcat
-//        clearItems(tableName);
-//        db.close();
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        adapter = new LogAdapter(list);
+        recyclerView.setAdapter(adapter);
     }
 
-    public void printItems(String tableName) {
-        DBHandler db = new DBHandler(getActivity(), tableName);
-
-        // Reading all items
-        Log.d("SQL: ", "Reading all items from "+tableName+"...");
-        List<DatabaseItem> contacts = db.getAllItems();
-
-        for (DatabaseItem cn : contacts) {
-            String log = "ID: "+cn.getID()+", Value: " + cn.getValue();
-            // Writing Items to log
-            Log.d("SQL: ", log);
+    protected static String createTitle(String oldString){
+        String newString="";
+        newString+=Character.toUpperCase(oldString.toCharArray()[0]);
+        for(int i = 1; i<oldString.length(); i++){
+            if(oldString.toCharArray()[i] == '_'){
+                newString+=' ';
+                newString+=Character.toUpperCase(oldString.toCharArray()[i+1]);
+                i++;
+            }
+            else
+                newString+=oldString.toCharArray()[i];
         }
-        db.close();
-    }
-
-    public void clearItems(String tableName) {
-        DBHandler db = new DBHandler(getActivity(), tableName);
-        db.deleteAllItems();
-        String log = "Clearing all items...";
-        Log.d("SQL: ", log);
-        db.close();
+        return newString;
     }
 }
