@@ -4,20 +4,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tripidevs.swoly.R;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 /**
  * Created by maver on 1/17/2017.
  */
 
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder>{
-
+    final String unit = "lbs";
     ArrayList<LogCard> logs = new ArrayList<>();
     ArrayList<Integer> progress = new ArrayList<>();
 
@@ -34,13 +33,19 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder>{
 
     @Override
     public void onBindViewHolder(LogAdapter.LogViewHolder holder, int position) {
+        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         LogCard log = logs.get(position);
-        holder.title.setText(log.getTitle());
+        holder.title.setText(log.getTitle()+": ");
         progress = log.getProgress();
-//
-//        for(short i=0; i<holder.textWeights.size(); i++){
-//            holder.textWeights.get(i).setText(String.valueOf(progress.get(i)));
-//        }
+
+        for(short i=0; i<progress.size(); i++){
+            TextView newWeight = new TextView(holder.linearLayoutWeigghts.getContext());
+            newWeight.setText(String.valueOf(progress.get(i))+"lbs");
+            newWeight.setTextSize(42);
+            newWeight.setLayoutParams(lparams);
+            holder.linearLayoutWeigghts.addView(newWeight);
+        }
 
     }
 
@@ -51,16 +56,12 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder>{
 
     public static class LogViewHolder extends RecyclerView.ViewHolder{
         TextView title;
-        RelativeLayout relativeLayoutWeights;
-        ArrayList<TextView> textWeights = new ArrayList<>();
+        LinearLayout linearLayoutWeigghts;
         public LogViewHolder(View view){
             super(view);
             title = (TextView) view.findViewById(R.id.logTextTitle);
-//
-//            relativeLayoutWeights = (RelativeLayout) view.findViewById(R.id.relativeWeights);
-//            for(short i =0; i<relativeLayoutWeights.getChildCount(); i++){
-//                textWeights.add((TextView)relativeLayoutWeights.getChildAt(i));
-//            }
+            linearLayoutWeigghts =(LinearLayout) view.findViewById(R.id.linearWeights);
+
         }
     }
 }
