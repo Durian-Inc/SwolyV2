@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.tripidevs.swoly.home.HomeFragment;
-import com.tripidevs.swoly.log.LogFragment;
+import com.tripidevs.swoly.progress.ProgressFragment;
 import com.tripidevs.swoly.maxes.MaxesFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -92,21 +92,21 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_schedule:
 //                fragmentClass = ScheduleFragment.class;
                 break;
-            case R.id.nav_log:
-                fragmentClass = LogFragment.class;
+            case R.id.nav_progress:
+                fragmentClass = ProgressFragment.class;
                 break;
             case R.id.nav_maxes:
                 fragmentClass = MaxesFragment.class;
                 break;
-            case R.id.nav_profile:
+//            case R.id.nav_profile:
 //                fragmentClass = ProfileFragment.class;
-                break;
+//                break;
             case R.id.nav_settings:
 //                fragmentClass = SettingsFragment.class;
                 break;
-            case R.id.nav_signout:
+//            case R.id.nav_signout:
 //                fragmentClass = SignoutFragment.class;
-                break;
+//                break;
             default:
                 fragmentClass = HomeFragment.class;
         }

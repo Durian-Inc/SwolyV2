@@ -1,4 +1,4 @@
-package com.tripidevs.swoly.log;
+package com.tripidevs.swoly.progress;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,18 +19,17 @@ import com.tripidevs.swoly.DBHandler;
 import com.tripidevs.swoly.DatabaseItem;
 import com.tripidevs.swoly.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogFragment extends Fragment {
+public class ProgressFragment extends Fragment {
 
     TextView test;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.log_fragment,container,false);
+        return inflater.inflate(R.layout.progress_fragment,container,false);
     }
 
     @Override
