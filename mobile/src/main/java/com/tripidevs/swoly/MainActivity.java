@@ -133,7 +133,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         drawer.closeDrawers();
-        item.setChecked(true);
+        if(item.getItemId()!=R.id.nav_settings)
+            item.setChecked(true);
         setTitle(item.getTitle());
 
         return true;

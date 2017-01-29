@@ -1,5 +1,8 @@
 package com.tripidevs.swoly.progress;
 
+import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -19,6 +23,7 @@ import com.tripidevs.swoly.DBHandler;
 import com.tripidevs.swoly.DatabaseItem;
 import com.tripidevs.swoly.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +50,9 @@ public class ProgressFragment extends Fragment {
 
         DBHandler db = new DBHandler(getActivity(), "weight");
 
+//        db.addItem(new DatabaseItem(185));
+//        db.addItem(new DatabaseItem(290));
+
         ArrayList<DatabaseItem> list = db.getAllItems();
 
         DatabaseItem[] arr = list.toArray(new DatabaseItem[list.size()]);
@@ -63,8 +71,21 @@ public class ProgressFragment extends Fragment {
         LineChart chart = (LineChart) getView().findViewById(R.id.chart);
 
         LineDataSet dataSet = new LineDataSet(entries, "Weight"); // add entries to dataset
-        dataSet.setColor(344489);
-        dataSet.setValueTextColor(299229);
+
+        dataSet.setLineWidth(1.75f);
+        dataSet.setCircleRadius(5f);
+        dataSet.setCircleHoleRadius(2.5f);
+        dataSet.setColor(Color.GREEN);
+        dataSet.setCircleColor(Color.GREEN);
+        dataSet.setHighLightColor(Color.GREEN);
+//        dataSet.setDrawValues(false);
+
+//        dataSet.setColor(344489);
+//        dataSet.setValueTextColor(299229);
+//        chart.getDescription().setEnabled(false);
+//        chart.setTouchEnabled(true);
+//        chart.setPinchZoom(false);
+//        chart.setViewPortOffsets(10, 0, 10, 0);
 
         Description e=new Description();
         e.setText("");
@@ -74,6 +95,22 @@ public class ProgressFragment extends Fragment {
 
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
+
+//        Legend l = chart.getLegend();
+//        l.setEnabled(false);
+
+//        chart.getAxisLeft().setEnabled(false);
+//        chart.getAxisLeft().setSpaceTop(40);
+//        chart.getAxisLeft().setSpaceBottom(40);
+//        chart.getAxisRight().setEnabled(false);
+
+//        chart.getXAxis().setEnabled(false);
+
+//        chart.animateX(2500);
+
+        ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+        toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP,150);
+
         chart.invalidate();
 
 //        String tableName = "bench";
