@@ -147,10 +147,11 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                                 .createValidString(lift.getText()
                                         .toString().toLowerCase().trim()));
                         db.deleteTable();
-                        db.createTable();
-                        db.addItem(new DatabaseItem(Integer.parseInt(weight
-                                .getText().toString())));
                         db.close();
+                        maxes.remove(position);
+                        view.startAnimation(deleteAnimation);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, maxes.size());
                         return true;
                     default:
                         return false;
