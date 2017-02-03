@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -50,8 +51,12 @@ public class ProgressFragment extends Fragment {
 
         DBHandler db = new DBHandler(getActivity(), "weight");
 
-//        db.addItem(new DatabaseItem(185));
-//        db.addItem(new DatabaseItem(290));
+//        db.addItem(new DatabaseItem(165));
+//        db.addItem(new DatabaseItem(150));
+//        db.addItem(new DatabaseItem(140));
+//        db.addItem(new DatabaseItem(153));
+//        db.addItem(new DatabaseItem(170));
+//        db.addItem(new DatabaseItem(183));
 
         ArrayList<DatabaseItem> list = db.getAllItems();
 
@@ -78,14 +83,16 @@ public class ProgressFragment extends Fragment {
         dataSet.setColor(Color.GREEN);
         dataSet.setCircleColor(Color.GREEN);
         dataSet.setHighLightColor(Color.GREEN);
-//        dataSet.setDrawValues(false);
+        dataSet.setDrawValues(false);
+        dataSet.setValueTextSize(12);
 
 //        dataSet.setColor(344489);
-//        dataSet.setValueTextColor(299229);
+        dataSet.setValueTextColor(Color.CYAN);
 //        chart.getDescription().setEnabled(false);
-//        chart.setTouchEnabled(true);
-//        chart.setPinchZoom(false);
+//        chart.setTouchEnabled(false);
+        chart.setPinchZoom(true);
 //        chart.setViewPortOffsets(10, 0, 10, 0);
+//        chart.getXAxis().setGranularity(1);
 
         Description e=new Description();
         e.setText("");
@@ -96,20 +103,23 @@ public class ProgressFragment extends Fragment {
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
 
-//        Legend l = chart.getLegend();
-//        l.setEnabled(false);
+        Legend l = chart.getLegend();
+        l.setEnabled(false);
 
 //        chart.getAxisLeft().setEnabled(false);
 //        chart.getAxisLeft().setSpaceTop(40);
 //        chart.getAxisLeft().setSpaceBottom(40);
-//        chart.getAxisRight().setEnabled(false);
+        chart.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().enableGridDashedLine(16,16,0);
+        chart.getAxisRight().enableGridDashedLine(16,16,0);
+        chart.setHardwareAccelerationEnabled(true);
 
-//        chart.getXAxis().setEnabled(false);
+        chart.getAxisLeft().setGranularity(10);
+
+
+        chart.getXAxis().setEnabled(false);
 
 //        chart.animateX(2500);
-
-        ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
-        toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP,150);
 
         chart.invalidate();
 
