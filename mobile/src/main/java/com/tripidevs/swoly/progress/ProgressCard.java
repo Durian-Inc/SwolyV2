@@ -1,4 +1,4 @@
-package com.tripidevs.swoly.log;
+package com.tripidevs.swoly.progress;
 
 import java.util.ArrayList;
 
@@ -6,11 +6,11 @@ import java.util.ArrayList;
  * Created by maver on 1/17/2017.
  */
 
-public class LogCard {
+public class ProgressCard {
     private String m_title;
     private ArrayList<Integer> m_arrayList = new ArrayList<>();
 
-    public LogCard(String name){
+    public ProgressCard(String name){
         this.m_title = name;
     }
 

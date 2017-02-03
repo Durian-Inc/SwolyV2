@@ -1,4 +1,4 @@
-package com.tripidevs.swoly.log;
+package com.tripidevs.swoly.progress;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,18 +15,18 @@ import com.tripidevs.swoly.R;
 
 import java.util.ArrayList;
 
-public class LogFragment extends Fragment {
+public class ProgressFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<String> names;
-    ArrayList<LogCard> list = new ArrayList<>();
+    ArrayList<ProgressCard> list = new ArrayList<>();
     ArrayList<DatabaseItem> items = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.log_fragment,container,false);
+        View v = inflater.inflate(R.layout.progress_fragment,container,false);
         recyclerView = (RecyclerView) v.findViewById(R.id.logRecyclerView);
         return v;
     }
@@ -39,7 +39,7 @@ public class LogFragment extends Fragment {
             names = dbHandler.listAllTables();
             DBHandler currentTable;
             for(String currentName: names){
-                LogCard newLog = new LogCard(createTitle(currentName));
+                ProgressCard newLog = new ProgressCard(createTitle(currentName));
                 currentTable = new DBHandler(getContext(), currentName);
                 items = currentTable.getAllItems();
                 for(DatabaseItem item: items){
@@ -62,7 +62,7 @@ public class LogFragment extends Fragment {
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        adapter = new LogAdapter(list);
+        adapter = new ProgressAdapter(list);
         recyclerView.setAdapter(adapter);
     }
 

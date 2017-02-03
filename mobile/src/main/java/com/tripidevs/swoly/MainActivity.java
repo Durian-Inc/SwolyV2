@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.tripidevs.swoly.home.HomeFragment;
-import com.tripidevs.swoly.log.LogFragment;
+import com.tripidevs.swoly.progress.ProgressFragment;
 import com.tripidevs.swoly.maxes.MaxesFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
 //                fragmentClass = ScheduleFragment.class;
                 break;
             case R.id.nav_log:
-                fragmentClass = LogFragment.class;
+                fragmentClass = ProgressFragment.class;
                 break;
             case R.id.nav_maxes:
                 fragmentClass = MaxesFragment.class;
