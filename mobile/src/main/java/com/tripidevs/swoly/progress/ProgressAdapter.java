@@ -1,5 +1,6 @@
 package com.tripidevs.swoly.progress;
 
+<<<<<<< HEAD
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,13 @@ import com.tripidevs.swoly.R;
 
 import java.util.ArrayList;
 
+=======
+>>>>>>> 629e7b2b4e4321d9c44785a240495f4eb66cb9fc
 /**
  * Created by maver on 1/17/2017.
  */
 
+<<<<<<< HEAD
 public class ProgressAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     final String unit = "lbs";
     ArrayList<ProgressCard> logs = new ArrayList<>();
@@ -113,4 +117,7 @@ public class ProgressAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.currWeight.setText(weight);
         }
     }
+=======
+public class ProgressAdapter {
+>>>>>>> 629e7b2b4e4321d9c44785a240495f4eb66cb9fc
 }

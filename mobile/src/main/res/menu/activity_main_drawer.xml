@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Schedule" />
         <item
-            android:id="@+id/nav_log"
+            android:id="@+id/nav_progress"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Log" />
+            android:title="Progress" />
         <item
             android:id="@+id/nav_maxes"
             android:icon="@drawable/ic_menu_manage"
@@ -24,18 +24,18 @@
 
     <item android:title="User">
         <menu>
-            <item
-                android:id="@+id/nav_profile"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Profile" />
+            <!--<item-->
+                <!--android:id="@+id/nav_profile"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="Profile" />-->
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Settings" />
-            <item
-                android:id="@+id/nav_signout"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Sign Out" />
+            <!--<item-->
+                <!--android:id="@+id/nav_signout"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Sign Out" />-->
         </menu>
     </item>
 

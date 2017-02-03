@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#999</color>
+    <color name="colorPrimary">#E53935</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="actionBarGray">#585858</color>
+    <color name="actionBarGray">#FFF</color>
     <color name="swolyWordColor">#263238</color>
     <color name="lightGray">#acacac</color>>
 </resources>
