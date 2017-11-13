@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "503245977731",
+    "firebase_url": "https://swoly-f1705.firebaseio.com",
+    "project_id": "swoly-f1705",
+    "storage_bucket": "swoly-f1705.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503245977731:android:d6ecbee64531f999",
+        "android_client_info": {
+          "package_name": "com.tripidevs.swoly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503245977731-0chspfqm6ufelmsfak9vvfbbam758n3l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tripidevs.swoly",
+            "certificate_hash": "c88cd258fad9ba18843de91aa4619ac8df4d50c2"
+          }
+        },
+        {
+          "client_id": "503245977731-mnl2731kujtakf55clr2ous5g5grt2c7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmA5zw_U53ZZKtvaKzHW6j0URsNxUTIF0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503245977731-mnl2731kujtakf55clr2ous5g5grt2c7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

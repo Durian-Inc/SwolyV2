@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:layout_marginTop="55dp">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="55dp">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="280dp"
-        app:srcCompat="@drawable/swoly_title"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/swolyImage"
-        android:layout_marginTop="38dp"/>
-
-    <Button
-        android:text="Log in with Google"
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        app:buttonSize="wide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/swolyImage"
-        android:width="180dp"
-        android:textColor="@android:color/white"
+        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/button_shape"
-        android:id="@+id/googleButton" />
+        android:layout_marginTop="63dp" />
 
-    <Button
-        android:text="Continue Anyways"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/googleButton"
-        android:width="180dp"
-        android:textColor="@android:color/white"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/button_shape"
-        android:id="@+id/continueButton" />
+        android:layout_marginTop="37dp"
+        android:text="Sign in to Swoly"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textStyle="bold" />
+
 </RelativeLayout>

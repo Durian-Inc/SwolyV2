@@ -12,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+//import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+//import com.google.firebase.auth.FirebaseAuth;
+//import com.google.firebase.auth.FirebaseUser;
 import com.tripidevs.swoly.home.HomeFragment;
 import com.tripidevs.swoly.progress.ProgressFragment;
 import com.tripidevs.swoly.maxes.MaxesFragment;
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Home");
+        setTitle("Swoly");
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -38,6 +41,13 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        // Configure Google Sign In
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.client_id))
+//                .requestEmail()
+//                .build();
 
 //        Fragment fragment = null;
 //        Class fragmentClass = HomeFragment.class;
@@ -48,6 +58,17 @@ public class MainActivity extends AppCompatActivity
 //        }
 //        FragmentManager fragmentManager = getSupportFragmentManager();
 //        fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
+    }
+
+//    private FirebaseAuth mAuth;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        // FirebaseUser currentUser = mAuth.getCurrentUser();
+        // TODO implent login stuff with new user details
+        // updateUI(currentUser);
     }
 
     @Override
@@ -86,12 +107,12 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         Class fragmentClass = HomeFragment.class;
         switch(item.getItemId()) {
-            case R.id.nav_home:
+            case R.id.nav_userauth:
                 fragmentClass = HomeFragment.class;
                 break;
-            case R.id.nav_schedule:
+//            case R.id.nav_schedule:
 //                fragmentClass = ScheduleFragment.class;
-                break;
+//                break;
             case R.id.nav_progress:
                 fragmentClass = ProgressFragment.class;
                 break;
@@ -101,14 +122,11 @@ public class MainActivity extends AppCompatActivity
 //            case R.id.nav_profile:
 //                fragmentClass = ProfileFragment.class;
 //                break;
-            case R.id.nav_settings:
+//            case R.id.nav_settings:
 //                fragmentClass = SettingsFragment.class;
-                break;
-//            case R.id.nav_signout:
-//                fragmentClass = SignoutFragment.class;
 //                break;
             default:
-                fragmentClass = HomeFragment.class;
+                fragmentClass = MaxesFragment.class;
         }
 
         try {
@@ -133,8 +151,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         drawer.closeDrawers();
-        if(item.getItemId()!=R.id.nav_settings)
-            item.setChecked(true);
+//        if(item.getItemId()!=R.id.nav_settings)
+//            item.setChecked(true);
         setTitle(item.getTitle());
 
         return true;

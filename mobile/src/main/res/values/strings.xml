@@ -31,4 +31,6 @@
     </integer-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="client_id">503245977731-0chspfqm6ufelmsfak9vvfbbam758n3l.apps.googleusercontent.com</string>
+
 </resources>

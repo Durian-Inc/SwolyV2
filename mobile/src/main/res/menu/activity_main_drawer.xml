@@ -4,22 +4,18 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:checked="true"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_maxes"
+            android:icon="@drawable/ic_menu_manage"
             android:title="Home" />
-        <item
-            android:id="@+id/nav_schedule"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Schedule" />
+        <!--<item-->
+            <!--android:id="@+id/nav_schedule"-->
+            <!--android:icon="@drawable/ic_menu_gallery"-->
+            <!--android:title="Schedule" />-->
         <item
             android:id="@+id/nav_progress"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Progress" />
-        <item
-            android:id="@+id/nav_maxes"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Maxes" />
+
     </group>
 
     <item android:title="User">
@@ -28,14 +24,14 @@
                 <!--android:id="@+id/nav_profile"-->
                 <!--android:icon="@drawable/ic_menu_share"-->
                 <!--android:title="Profile" />-->
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Settings" />
             <!--<item-->
-                <!--android:id="@+id/nav_signout"-->
+                <!--android:id="@+id/nav_settings"-->
                 <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Sign Out" />-->
+                <!--android:title="Settings" />-->
+            <item
+                android:id="@+id/nav_userauth"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Sign In" />
         </menu>
     </item>
 
