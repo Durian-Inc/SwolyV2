@@ -1,6 +1,9 @@
 package com.tripidevs.swoly;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +18,7 @@ import android.view.View;
 //import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 //import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.auth.FirebaseUser;
+import com.hololo.tutorial.library.TutorialActivity;
 import com.tripidevs.swoly.home.HomeFragment;
 import com.tripidevs.swoly.progress.ProgressFragment;
 import com.tripidevs.swoly.maxes.MaxesFragment;
@@ -28,6 +32,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!sharedPreferences.getBoolean("finishedTutorial", false)) {
+            // The user hasn't seen the OnboardingFragment yet, so show it
+            startActivity(new Intent(this, Tutorial.class));
+        }
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
