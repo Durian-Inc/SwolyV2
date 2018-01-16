@@ -7,14 +7,6 @@
             android:id="@+id/nav_maxes"
             android:icon="@drawable/ic_menu_manage"
             android:title="Home" />
-        <!--<item-->
-            <!--android:id="@+id/nav_schedule"-->
-            <!--android:icon="@drawable/ic_menu_gallery"-->
-            <!--android:title="Schedule" />-->
-        <item
-            android:id="@+id/nav_progress"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Progress" />
 
     </group>
 

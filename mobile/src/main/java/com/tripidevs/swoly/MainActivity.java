@@ -15,9 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-//import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-//import com.google.firebase.auth.FirebaseAuth;
-//import com.google.firebase.auth.FirebaseUser;
 import com.hololo.tutorial.library.TutorialActivity;
 import com.tripidevs.swoly.home.HomeFragment;
 import com.tripidevs.swoly.progress.ProgressFragment;
@@ -42,57 +39,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Swoly");
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        toggle.syncState();
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-        // Configure Google Sign In
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.client_id))
-//                .requestEmail()
-//                .build();
-
-//        Fragment fragment = null;
-//        Class fragmentClass = HomeFragment.class;
-//        try {
-//            fragment = (Fragment) fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
-    }
-
-//    private FirebaseAuth mAuth;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        // FirebaseUser currentUser = mAuth.getCurrentUser();
-        // TODO implent login stuff with new user details
-        // updateUI(currentUser);
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    public void onContinuePressed(View v) {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.openDrawer(GravityCompat.START);
     }
 
 //    @Override
@@ -114,28 +60,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         Fragment fragment = null;
-        Class fragmentClass = HomeFragment.class;
+        Class fragmentClass = MaxesFragment.class;
         switch(item.getItemId()) {
-            case R.id.nav_userauth:
-                fragmentClass = HomeFragment.class;
-                break;
-//            case R.id.nav_schedule:
-//                fragmentClass = ScheduleFragment.class;
-//                break;
-            case R.id.nav_progress:
-                fragmentClass = ProgressFragment.class;
-                break;
             case R.id.nav_maxes:
                 fragmentClass = MaxesFragment.class;
                 break;
-//            case R.id.nav_profile:
-//                fragmentClass = ProfileFragment.class;
-//                break;
-//            case R.id.nav_settings:
-//                fragmentClass = SettingsFragment.class;
-//                break;
-            default:
-                fragmentClass = MaxesFragment.class;
         }
 
         try {
@@ -160,8 +89,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         drawer.closeDrawers();
-//        if(item.getItemId()!=R.id.nav_settings)
-//            item.setChecked(true);
         setTitle(item.getTitle());
 
         return true;

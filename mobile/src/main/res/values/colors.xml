@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E53935</color>
-    <color name="colorPrimaryDark">#D32F2F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#d33682</color>
+    <color name="background">#21222a</color>
+    <color name="cardBackground">#34363f</color>
+    <color name="colorPrimaryDark">#b52f6f</color>
+    <color name="colorAccent">#d33682</color>
     <color name="actionBarGray">#FFF</color>
     <color name="swolyWordColor">#263238</color>
     <color name="lightGray">#acacac</color>>
