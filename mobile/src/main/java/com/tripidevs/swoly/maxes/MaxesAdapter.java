@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tripidevs.swoly.DBHandler;
 import com.tripidevs.swoly.DatabaseItem;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 
 public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHolder> {
     ArrayList<MaxesCard> maxes = new ArrayList<>();
-
+    static float oldWeightStore = 0.0f;
 
 
     private int lastPos = -1;
@@ -56,6 +57,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         holder.lift.setText(max.getLiftName());
         holder.weight.setText(String.valueOf(max.getLiftMax()));
         holder.cardPosition = holder.getAdapterPosition();
+        oldWeightStore = Float.parseFloat(holder.weight.getText().toString());
         for (final Button button: holder.cardButtons) {
             if(button.getText().length() >= 1){
                 button.setOnClickListener(new View.OnClickListener() {
@@ -70,9 +72,20 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        setCustomPercentage(view, holder.lift, holder.weight, holder.customPercent);
+                        setCustomPercentage(view, holder.lift, holder.weight, holder.customPercent, holder.weight);
                     }
                 });
+            }
+            else if(button.getId() == R.id.customPercent){
+                if(MaxesFragment.customPercent.length() > 0) {
+                    button.setText(MaxesFragment.customPercent);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            percentageClick(button, holder.lift, holder.weight, view);
+                        }
+                    });
+                }
             }
 
         }
@@ -174,7 +187,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
     }
 
     protected void setCustomPercentage(View view, final TextView title,
-                                       final TextView currMax, final Button btnCustomPercent){
+                                       final TextView currMax, final Button btnCustomPercent, final TextView oldWeight){
         LayoutInflater layoutInflater = LayoutInflater.from
                 (view.getContext());
         final View v = layoutInflater.inflate(R.layout.maxes_dialog_custompercent,
@@ -195,13 +208,35 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
                     public void onClick(DialogInterface dialog, int which) {
                         EditText customPercentage = (EditText) v
                                 .findViewById(R.id.editPercent);
-                        btnCustomPercent.setText(customPercentage.getText().toString());
-                        btnCustomPercent.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                percentageClick(btnCustomPercent, title, currMax, v);
+                        try{
+                            int number = Integer.valueOf(customPercentage.getText().toString());
+                            if (number<=0) {
+                                Toast.makeText(v.getContext(), "Please enter a number greater than 0", Toast.LENGTH_SHORT).show();
                             }
-                        });
+                            else if(number > 100) {
+                                Toast.makeText(v.getContext(), "Please enter a number less than 101", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                float percentage = Float.parseFloat(customPercentage.getText().toString())/100;
+                                float newWeight = Math.round((((oldWeightStore*percentage)-45)/2));
+                                if (newWeight > 0) {
+                                    btnCustomPercent.setText(customPercentage.getText().toString());
+                                    MaxesFragment.customPercent = customPercentage.getText().toString();
+                                    btnCustomPercent.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            percentageClick(btnCustomPercent, title, currMax, v);
+                                        }
+                                    });
+                                }else if(newWeight < 0){
+                                    Toast.makeText(v.getContext(), "Please lift more", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        }catch (Exception err) {
+                            Toast.makeText(v.getContext(), "Please enter a number from 1-100", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 })
                 .setCancelable(false);

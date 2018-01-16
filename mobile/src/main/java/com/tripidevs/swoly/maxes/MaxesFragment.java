@@ -27,6 +27,7 @@ public class MaxesFragment extends Fragment {
     ArrayList<DatabaseItem> currMaxes;
     ArrayList<String> liftNames;
     FloatingActionButton floatingActionButton;
+    static String customPercent = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
