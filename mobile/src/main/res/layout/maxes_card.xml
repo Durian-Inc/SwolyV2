@@ -90,13 +90,13 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/preset1"
                 style="@android:style/Widget.Material.Light.Button.Borderless.Small"
-                android:textSize="32sp"
+                android:textSize="30sp"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/titleDividerNoCustom"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="4dp"
                 android:background="?android:attr/selectableItemBackground"
                 />
 
@@ -106,14 +106,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/preset2"
                 style="@android:style/Widget.Material.Light.Button.Borderless.Small"
-                android:textSize="32sp"
+                android:textSize="30sp"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_alignTop="@+id/preset1"
                 android:layout_toRightOf="@+id/preset1"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="2dp"
                 android:layout_below="@+id/titleDividerNoCustom"/>
 
             <Button
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/preset5"
                 style="@android:style/Widget.Material.Light.Button.Borderless.Small"
-                android:textSize="32sp"
+                android:textSize="30sp"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -130,7 +130,7 @@
                 android:layout_alignBaseline="@+id/preset1"
                 android:layout_alignBottom="@+id/preset1"
                 android:layout_toRightOf="@+id/preset4"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="2dp"
                 android:layout_below="@+id/titleDividerNoCustom"/>
 
             <Button
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/preset4"
                 style="@android:style/Widget.Material.Light.Button.Borderless.Small"
-                android:textSize="32sp"
+                android:textSize="30sp"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -147,7 +147,7 @@
                 android:layout_alignBaseline="@+id/preset3"
                 android:layout_alignBottom="@+id/preset3"
                 android:layout_toRightOf="@+id/preset3"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="2dp"
                 android:layout_below="@+id/titleDividerNoCustom"/>
 
             <Button
@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/preset3"
                 style="@android:style/Widget.Material.Light.Button.Borderless.Small"
-                android:textSize="32sp"
+                android:textSize="30sp"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -165,7 +165,42 @@
                 android:layout_alignBottom="@+id/preset2"
                 android:layout_centerInParent="false"
                 android:layout_toRightOf="@+id/preset2"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="2dp"
+                android:layout_below="@+id/titleDividerNoCustom"
+                />
+            <Button
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/customPercent"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_alignBaseline="@+id/preset3"
+                android:layout_alignBottom="@+id/preset3"
+                android:layout_centerInParent="false"
+                android:layout_toRightOf="@+id/preset5"
+                android:layout_marginLeft="2dp"
+                android:layout_below="@+id/titleDividerNoCustom"
+                />
+            <Button
+                android:drawableStart="@drawable/ic_mode_edit_white_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/customIcon"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_alignBaseline="@+id/preset3"
+                android:layout_alignBottom="@+id/preset3"
+                android:layout_centerInParent="false"
+                android:layout_toRightOf="@+id/customPercent"
+                android:layout_marginLeft="2dp"
                 android:layout_below="@+id/titleDividerNoCustom"
                 />
 

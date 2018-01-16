@@ -35,6 +35,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
     ArrayList<MaxesCard> maxes = new ArrayList<>();
 
 
+
     private int lastPos = -1;
 
     public MaxesAdapter(ArrayList<MaxesCard> maxes){
@@ -56,13 +57,24 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         holder.weight.setText(String.valueOf(max.getLiftMax()));
         holder.cardPosition = holder.getAdapterPosition();
         for (final Button button: holder.cardButtons) {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    percentageClick(button, holder.lift, holder
-                            .weight, v);
-                }
-            });
+            if(button.getText().length() >= 1){
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        percentageClick(button, holder.lift, holder
+                                .weight, v);
+                    }
+                });
+            }
+            else if(button.getId() == R.id.customIcon){
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        setCustomPercentage(view, holder.lift, holder.weight, holder.customPercent);
+                    }
+                });
+            }
+
         }
         holder.vertMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +173,42 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         popup.show();
     }
 
+    protected void setCustomPercentage(View view, final TextView title,
+                                       final TextView currMax, final Button btnCustomPercent){
+        LayoutInflater layoutInflater = LayoutInflater.from
+                (view.getContext());
+        final View v = layoutInflater.inflate(R.layout.maxes_dialog_custompercent,
+                null);
+        final AlertDialog.Builder alertBuilder = new
+                AlertDialog.Builder(v.getContext());
+
+        alertBuilder.setView(v);
+        alertBuilder
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText customPercentage = (EditText) v
+                                .findViewById(R.id.editPercent);
+                        btnCustomPercent.setText(customPercentage.getText().toString());
+                        btnCustomPercent.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                percentageClick(btnCustomPercent, title, currMax, v);
+                            }
+                        });
+                    }
+                })
+                .setCancelable(false);
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
     protected void percentageClick(Button button,TextView title,
                                    TextView currMax, View v){
         final Animation percentAnimation = AnimationUtils.loadAnimation
@@ -206,6 +254,7 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
         FloatingActionButton floatingActionButton;
         int cardPosition;
         View viewCard;
+        Button customPercent;
 
         public MaxesViewHolder(View view){
             super(view);
@@ -217,6 +266,9 @@ public class MaxesAdapter extends RecyclerView.Adapter<MaxesAdapter.MaxesViewHol
             for(short i =0; i<cardLayout.getChildCount(); i++){
                 if(cardLayout.getChildAt(i) instanceof AppCompatButton){
                     cardButtons.add((AppCompatButton) cardLayout.getChildAt(i));
+                    if(cardLayout.getChildAt(i).getId() == R.id.customPercent) {
+                        customPercent = (Button) cardLayout.getChildAt(i);
+                    }
                 }
             }
             vertMenu = (ImageView) view.findViewById(R.id.cardMenu);
