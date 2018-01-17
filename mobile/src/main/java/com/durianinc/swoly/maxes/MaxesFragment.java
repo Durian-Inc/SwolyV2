@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.durianinc.swoly.DBHandler;
 import com.durianinc.swoly.DatabaseItem;
 import com.durianinc.swoly.R;
-import com.google.api.client.auth.oauth.AbstractOAuthGetToken;
 
 import java.util.ArrayList;
 
@@ -36,25 +35,7 @@ public class MaxesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try{
-            DBHandler dbHandler = new DBHandler(getActivity());
-            liftNames = dbHandler.listAllTables();
-            DBHandler currentTable;
-            int value;
-            for(String liftName: liftNames){
-                currentTable = new DBHandler(getActivity(), liftName);
-                currMaxes = currentTable.getAllItems();
-                value = MaxesAdapter.findLastValue(currentTable, liftName);
-                if(value != -1){
-                    MaxesCard newMax = new MaxesCard(createTitle(liftName), value);
-                    list.add(newMax);
-                }
-            }
-            dbHandler.close();
-        }
-        catch (Exception e){
 
-        }
     }
 
     @Nullable
@@ -82,11 +63,14 @@ public class MaxesFragment extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
+        getCards();
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         adapter = new MaxesAdapter(list);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
+
         floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id
                 .additionFAB);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +79,29 @@ public class MaxesFragment extends Fragment {
                 createNewMax();
             }
         });
+    }
+
+    private void getCards() {
+        try{
+            DBHandler dbHandler = new DBHandler(getActivity());
+            liftNames = dbHandler.listAllTables();
+            DBHandler currentTable;
+            list = new ArrayList<>();
+            int value;
+            for(String liftName: liftNames){
+                currentTable = new DBHandler(getActivity(), liftName);
+                currMaxes = currentTable.getAllItems();
+                value = MaxesAdapter.findLastValue(currentTable, liftName);
+                if(value != -1){
+                    MaxesCard newMax = new MaxesCard(createTitle(liftName), value);
+                    list.add(newMax);
+                }
+            }
+            dbHandler.close();
+        }
+        catch (Exception e){
+
+        }
     }
 
     public void createNewMax(){
