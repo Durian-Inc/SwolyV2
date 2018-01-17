@@ -14,6 +14,7 @@
         android:id="@+id/editPercent"
         android:inputType="numberSigned"
         android:digits="0123456789"
+        android:maxLength="3"
         android:hint="55"
         style="@android:style/Widget.Material.Light.EditText"/>
 

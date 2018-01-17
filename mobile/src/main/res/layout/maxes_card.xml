@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="24dp"
+                android:paddingTop="10dp"
                 android:id="@+id/liftTitle"
                 android:textSize="36sp"
                 android:textColor="@android:color/white"
@@ -113,7 +113,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_alignTop="@+id/preset1"
                 android:layout_toRightOf="@+id/preset1"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="4dp"
                 android:layout_below="@+id/titleDividerNoCustom"/>
 
             <Button
@@ -130,7 +130,7 @@
                 android:layout_alignBaseline="@+id/preset1"
                 android:layout_alignBottom="@+id/preset1"
                 android:layout_toRightOf="@+id/preset4"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="4dp"
                 android:layout_below="@+id/titleDividerNoCustom"/>
 
             <Button
@@ -147,7 +147,7 @@
                 android:layout_alignBaseline="@+id/preset3"
                 android:layout_alignBottom="@+id/preset3"
                 android:layout_toRightOf="@+id/preset3"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="4dp"
                 android:layout_below="@+id/titleDividerNoCustom"/>
 
             <Button
@@ -165,7 +165,7 @@
                 android:layout_alignBottom="@+id/preset2"
                 android:layout_centerInParent="false"
                 android:layout_toRightOf="@+id/preset2"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="4dp"
                 android:layout_below="@+id/titleDividerNoCustom"
                 />
             <Button
@@ -183,26 +183,23 @@
                 android:layout_alignBottom="@+id/preset3"
                 android:layout_centerInParent="false"
                 android:layout_toRightOf="@+id/preset5"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="4dp"
                 android:layout_below="@+id/titleDividerNoCustom"
                 />
+
             <Button
-                android:drawableStart="@drawable/ic_mode_edit_white_24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/customIcon"
                 style="@android:style/Widget.Material.Light.Button.Borderless.Small"
-                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/titleDividerNoCustom"
+                android:layout_centerInParent="false"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_mode_edit_white_24dp"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_alignBaseline="@+id/preset3"
-                android:layout_alignBottom="@+id/preset3"
-                android:layout_centerInParent="false"
-                android:layout_toRightOf="@+id/customPercent"
-                android:layout_marginLeft="2dp"
-                android:layout_below="@+id/titleDividerNoCustom"
-                />
+                android:textColor="@android:color/white" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
